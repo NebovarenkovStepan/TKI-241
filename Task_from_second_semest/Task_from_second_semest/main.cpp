@@ -7,7 +7,7 @@ using namespace queue;
 
 int main()
 {
-	Vector<Vector<int>> a = { {1, 2}, {1, 2} };
-	cout << a[0][0];
+	Vector<Pair<int, int>> a = { {1, 2}, {1, 2} };
+	cout << a[0];
 	return 0;
 }
