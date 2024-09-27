@@ -15,6 +15,9 @@ namespace queue
     string ToString(const Pair<T, U>& pair);
 
     template <class T, class U>
+    ostream& operator<<(ostream& out, const Pair<T, U>& pair);
+
+    template <class T, class U>
     struct Pair
     {
         T first_element;
@@ -29,11 +32,6 @@ namespace queue
         tuple<T, U> get_array() const;
 
         string ToString() const;
-
-        friend ostream& operator<<(ostream& out, const Pair<T, U>& pair)
-        {
-            return out << "(" << pair.first() << "; " << pair.second() << ")";
-        }
     };
 }
 
@@ -79,5 +77,11 @@ namespace queue
         stringstream buffer{};
         buffer << first_element << ", " << second_element;
         return buffer.str();
+    }
+
+    template <class T, class U>
+    ostream& operator<<(ostream& out, const Pair<T, U>& pair)
+    {
+        return out << "(" << pair.first() << "; " << pair.second() << ")";
     }
 }

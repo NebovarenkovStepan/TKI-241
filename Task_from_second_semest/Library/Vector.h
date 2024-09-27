@@ -37,8 +37,8 @@ namespace queue
 
     private:
         T* array;
-        int size;
-        int capacity;
+        size_t size;
+        size_t capacity;
     };
 
 }
@@ -75,37 +75,30 @@ namespace queue
     template<class T>
     Vector<T>::Vector(const int size) : size(size), capacity(size)
     {
+        if (size <= 0)
+        {
+            throw std::logic_error("–азмер массива должен быть неотрицательным!");
+        }
+        this->size = static_cast<size_t>(size);
+        this->capacity(size);
         array = new T[size];
     }
 
     template<typename T>
-    Vector<T>::Vector() : array(nullptr), size(0), capacity(1)
+    Vector<T>::Vector() : array(nullptr), size(0), capacity(0)
     {
-        array = new T[capacity];
     }
 
     template<class T>
-    Vector<T>::Vector(initializer_list<T> values) : size(values.size()), capacity(values.size())
+    Vector<T>::Vector(initializer_list<T> values) : size(values.size()), capacity(values.size()), array(new T[this->capacity])
     {
-        array = new T[size];
-        int i = 0;
-        for (const T& value : values)
-        {
-            if (i < size)
-            {
-                array[i] = value;
-                i++;
-            }
-        }
+        copy(values.begin(), values.end(), this->array);
     }
 
     template<class T>
-    Vector<T>::Vector(const Vector<T>& other) : size(other.size), capacity(other.capacity), array(new T[this->capacity])
+    Vector<T>::Vector(const Vector<T>& other) : size(other.size), capacity(other.size), array(new T[this->capacity])
     {
-        for (int i = 0; i < size; i++)
-        {
-            array[i] = other.array[i];
-        }
+        copy(this->array, this->array + this->size, other.array);
     }
 
     template <class T>
