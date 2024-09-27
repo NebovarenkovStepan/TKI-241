@@ -8,6 +8,7 @@ using namespace queue;
 int main()
 {
 	Pair<int, double> a = { 1, 1.5 };
-	cout << a;
+	Vector<int> p = { 1, 2, 3 };
+	cout << p;
 	return 0;
 }

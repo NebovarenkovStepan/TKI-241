@@ -22,6 +22,8 @@ namespace queue
         Vector<T>& operator=(const Vector& other);
         T& operator[](int index);
         friend ostream& operator<<(ostream& out, const Vector<T>& vector);
+        string ToString() const;
+
     private:
         T* array;
         int size;
@@ -37,6 +39,23 @@ namespace queue
         return array[index];
     }
 
+    template<typename T>
+    inline string Vector<T>::ToString() const
+    {
+        stringstream buffer{};
+        buffer << "[";
+        for (size_t i = 0; i < size; i++)
+        {
+            buffer << this->array[i];
+            if (i != size - 1)
+            {
+                buffer << ", ";
+            }
+        }
+        buffer << "]";
+        return buffer.str();
+    }
+
     template<class T>
     Vector<T>::Vector(const int size) : size(size), capacity(size)
     {
@@ -50,8 +69,9 @@ namespace queue
     }
 
     template<class T>
-    Vector<T>::Vector(initializer_list<T> values) : size(values.size()), capacity(values.size()), array(new T[this->capacity])
+    Vector<T>::Vector(initializer_list<T> values) : size(values.size()), capacity(values.size())
     {
+        array = new T[size];
         int i = 0;
         for (const T& value : values)
         {
@@ -112,16 +132,7 @@ namespace queue
     template <class T>
     ostream& operator<<(ostream& out, const Vector<T>& vector)
     {
-        out << "[";
-        for (int i = 0; i < vector.size; i++)
-        {
-            out << vector.array[i];
-            if (i != vector.size - 1)
-            {
-                out << ", ";
-            }
-        }
-        out << "]";
+        out << vector.ToString();
         return out;
     }
 }
