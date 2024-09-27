@@ -21,6 +21,7 @@ namespace queue
         U second_element;
 
         Pair(T f, U s);
+        Pair();
 
         T first() const;
         U second() const;
@@ -48,6 +49,11 @@ namespace queue
 
     template <class T, class U>
     Pair<T, U>::Pair(T first_element, U second_element) : first_element(first_element), second_element(second_element) {}
+
+    template<class T, class U>
+    inline Pair<T, U>::Pair()
+    {
+    }
 
     template <class T, class U>
     T Pair<T, U>::first() const

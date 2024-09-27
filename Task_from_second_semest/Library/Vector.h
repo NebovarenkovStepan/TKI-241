@@ -10,6 +10,15 @@ using namespace std;
 namespace queue
 {
     template <typename T>
+    class Vector;
+
+    template <typename T>
+    wstring ToString(const Vector<T>& vector);
+
+    template <typename T>
+    ostream& operator<<(ostream& out, const Vector<T>& vector);
+
+    template <typename T>
     class Vector
     {
     public:
@@ -20,21 +29,24 @@ namespace queue
         ~Vector();
         void push_back(const T& element);
         Vector<T>& operator=(const Vector& other);
-        T& operator[](int index);
-        friend ostream& operator<<(ostream& out, const Vector<T>& vector);
+        T& operator[](size_t index);
+        T operator[](size_t index) const;
+       
         string ToString() const;
+        size_t get_size() const;
 
     private:
         T* array;
         int size;
         int capacity;
     };
+
 }
 
 namespace queue
 {
     template <class T>
-    T& Vector<T>::operator[](int index)
+    T& Vector<T>::operator[](size_t index)
     {
         return array[index];
     }
@@ -44,16 +56,20 @@ namespace queue
     {
         stringstream buffer{};
         buffer << "[";
-        for (size_t i = 0; i < size; i++)
+        size_t i = 0;
+        for (; i < size - 1; i++)
         {
-            buffer << this->array[i];
-            if (i != size - 1)
-            {
-                buffer << ", ";
-            }
+            buffer << this->array[i] << ", ";
         }
-        buffer << "]";
+        buffer << this->array[i] << "]";
+
         return buffer.str();
+    }
+
+    template<typename T>
+    inline size_t Vector<T>::get_size() const
+    {
+        return this->size;
     }
 
     template<class T>
@@ -111,6 +127,12 @@ namespace queue
         return *this;
     }
 
+    template<typename T>
+    inline T Vector<T>::operator[](size_t index) const
+    {
+        return this->array[index];
+    }
+
     template <class T>
     void Vector<T>::push_back(const T& element)
     {
@@ -129,10 +151,37 @@ namespace queue
         array[size] = element;
     }
 
+
+    template<typename T>
+    wstring ToString(const Vector<T>& vector)
+    {
+        wstringstream out{};
+        out << L"[";
+        size = this->size;
+        for (size_t i = 0; i < size; i++)
+        {
+            out << vector[i];
+            if (i < size)
+            {
+                out << L", ";
+            }
+        }
+        out << L"]";
+
+        return out.str();
+    }
+
     template <class T>
     ostream& operator<<(ostream& out, const Vector<T>& vector)
     {
-        out << vector.ToString();
-        return out;
+        stringstream buffer{};
+        size_t i = 0;
+        for (; i < vector.get_size() - 1; ++i)
+        {
+            buffer << vector[i] << ", ";
+        }
+        buffer << vector[i];
+
+        return out << buffer.str();
     }
 }
