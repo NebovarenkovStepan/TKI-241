@@ -4,8 +4,8 @@ using namespace std;
 
 namespace film
 {
-		Movie::Movie(string title, string genre, string director, vector<string> actors, vector<string> media, double sales) 
-		: title(title), genre(genre), director(director), actors(actors), media(media), sales(sales) {}
+		Movie::Movie(string title, string genre, string director) 
+		: title(title), genre(genre), director(director){}
 
 		string Movie::get_title() const
 		{
@@ -20,21 +20,6 @@ namespace film
 		string Movie::get_director() const
 		{
 			return director;
-		}
-
-		vector<string> Movie::get_actors() const
-		{
-			return actors;
-		}
-
-		vector<string> Movie::get_media() const
-		{
-			return media;
-		}
-
-		double Movie::get_sales() const
-		{
-			return sales;
 		}
 
 		string Movie::display_info() const
