@@ -9,7 +9,7 @@ int main()
 {
 	Pair<int, double> a = { 1, 1.5 };
 	Vector<int> p = { 1, 2, 3 };
-	Vector<Pair<int, double>> u{a, a, a};
-	cout << u;
+	//Vector<Pair<int, double>> u{a, a, a};
+	cout << a[0];
 	return 0;
 }

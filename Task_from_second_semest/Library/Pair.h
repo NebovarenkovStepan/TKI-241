@@ -31,6 +31,8 @@ namespace queue
 
         tuple<T, U> get_array() const;
 
+        //U& operator[](size_t index);
+
         string ToString() const;
     };
 }
@@ -70,6 +72,20 @@ namespace queue
     {
         return make_tuple(first_element, second_element);
     }
+
+    /*template<class T, class U>
+    U& Pair<T, U>::operator[](size_t index)
+    {
+        if (index > 1)
+        {
+            throw std::logic_error("Индекс должен быть меньше размера вектора!");
+        }
+
+        if (index == 1)
+        {
+            return second_element;
+        }
+    }*/
 
     template <class T, class U>
     string Pair<T, U>::ToString() const

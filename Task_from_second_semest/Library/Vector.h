@@ -26,6 +26,7 @@ namespace queue
         Vector();
         Vector(initializer_list<T> values);
         Vector(const Vector<T>& other);
+        Vector<T>(Vector<T>&& other);
         ~Vector();
         void push_back(const T& element);
         Vector<T>& operator=(const Vector& other);
@@ -48,7 +49,17 @@ namespace queue
     template <class T>
     T& Vector<T>::operator[](size_t index)
     {
+        if (index > this->size)
+        {
+            throw std::logic_error("Индекс должен быть меньше размера вектора!");
+        }
         return array[index];
+    }
+
+    template<typename T>
+    Vector<T>::Vector(Vector<T>&& other) : size(other.size), array(other.array), capacity(other.capacity)
+    {
+        delete[] other.array;
     }
 
     template<typename T>
