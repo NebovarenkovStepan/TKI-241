@@ -18,8 +18,11 @@ namespace queue
     template <typename T>
     ostream& operator<<(ostream& out, const Vector<T>& vector);
 
+    template<typename T>
+    wostream& operator<< (std::wostream& os, const Vector<T>& vector);
+
     template <typename T>
-    class Vector
+    class Vector final
     {
     public:
         explicit Vector(const int size);
@@ -30,6 +33,7 @@ namespace queue
         ~Vector();
         void push_back(const T& element);
         Vector<T>& operator=(const Vector& other);
+        Vector& operator=(Vector&& other) noexcept;
         T& operator[](size_t index);
         T operator[](size_t index) const;
        
@@ -40,6 +44,10 @@ namespace queue
         T* array;
         size_t size;
         size_t capacity;
+
+        bool is_full() const noexcept;
+
+        void expand();
     };
 
 }
@@ -51,7 +59,7 @@ namespace queue
     {
         if (index > this->size)
         {
-            throw std::logic_error("»ндекс должен быть меньше размера вектора!");
+            throw logic_error("»ндекс должен быть меньше размера вектора!");
         }
         return array[index];
     }
@@ -59,7 +67,7 @@ namespace queue
     template<typename T>
     Vector<T>::Vector(Vector<T>&& other) : size(other.size), array(other.array), capacity(other.capacity)
     {
-        delete[] other.array;
+        other.array = nullptr;
     }
 
     template<typename T>
@@ -91,8 +99,12 @@ namespace queue
             throw std::logic_error("–азмер массива должен быть неотрицательным!");
         }
         this->size = static_cast<size_t>(size);
-        this->capacity(size);
-        array = new T[size];
+        if (this->is_full())
+        {
+            this->capacity = this->size * 2;
+        }
+
+        this->array = new T[this->capacity];
     }
 
     template<typename T>
@@ -107,7 +119,7 @@ namespace queue
     }
 
     template<class T>
-    Vector<T>::Vector(const Vector<T>& other) : size(other.size), capacity(other.size), array(new T[this->capacity])
+    Vector<T>::Vector(const Vector<T>& other) : size(other.size), capacity(other.capacity), array(new T[this->capacity])
     {
         copy(this->array, this->array + this->size, other.array);
     }
@@ -132,6 +144,17 @@ namespace queue
     }
 
     template<typename T>
+    inline Vector<T>& Vector<T>::operator=(Vector&& other) noexcept
+    {
+        if (this != &other)
+        {
+            this = other;
+        }
+
+        return *this;
+    }
+
+    template<typename T>
     inline T Vector<T>::operator[](size_t index) const
     {
         return this->array[index];
@@ -140,19 +163,13 @@ namespace queue
     template <class T>
     void Vector<T>::push_back(const T& element)
     {
-        if (size == capacity)
+        if (this->is_full())
         {
-            capacity *= 2;
-            T* new_array = new T[capacity];
-            for (int i = 0; i < size; i++)
-            {
-                new_array[i] = array[i];
-            }
-            delete[] array;
-            array = new_array;
+            this->expand();
         }
-        size++;
-        array[size] = element;
+
+        this->array[this->size++] = element;
+        return *this;
     }
 
 
@@ -178,14 +195,33 @@ namespace queue
     template <class T>
     ostream& operator<<(ostream& out, const Vector<T>& vector)
     {
-        stringstream buffer{};
-        size_t i = 0;
-        for (; i < vector.get_size() - 1; ++i)
-        {
-            buffer << vector[i] << ", ";
-        }
-        buffer << vector[i];
+        return out << vector.ToString();
+    }
 
-        return out << buffer.str();
+    template<typename T>
+    wostream& operator<<(std::wostream& os, const Vector<T>& vector)
+    {
+        auto temp = vector.ToString();
+        wstring ws{ temp.cbegin(), temp.cend() };
+
+        return os << ws;
+    }
+
+    template<typename T>
+    inline bool Vector<T>::is_full() const noexcept
+    {
+        return this->capacity <= this->size;
+    }
+
+    template<typename T>
+    inline void Vector<T>::expand()
+    {
+        Vector temp(this->size);
+        for (size_t i = 0; i < this->size; ++i)
+        {
+            temp.data[i] = this->data[i];
+        }
+
+        this = temp;
     }
 }

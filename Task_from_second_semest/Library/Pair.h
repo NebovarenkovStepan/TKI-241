@@ -2,7 +2,6 @@
 #include <sstream>
 #include <ostream>
 #include <iostream>
-#include <tuple>
 
 using namespace std;
 
@@ -17,6 +16,12 @@ namespace queue
     template <class T, class U>
     ostream& operator<<(ostream& out, const Pair<T, U>& pair);
 
+    /*template <class T, class U>
+    wstring ToString(const Pair<T, U>& pair);
+
+    template <class T, class U>
+    wostream& operator<<(ostream& out, const Pair<T, U>& pair);*/
+
     template <class T, class U>
     struct Pair
     {
@@ -28,8 +33,6 @@ namespace queue
 
         T first() const;
         U second() const;
-
-        auto& operator[](const size_t index);
 
         string ToString() const;
     };
@@ -65,25 +68,6 @@ namespace queue
         return second_element;
     }
 
-    template<class T, class U>
-    auto& Pair<T, U>::operator[](const size_t index)
-    {
-        if (index > 1)
-        {
-            throw std::logic_error("Индекс должен быть меньше размера пары!");
-        }
-
-        if (index == 1)
-        {
-            return first_element;
-        }
-
-        else
-        {
-            return second_element;
-        }
-    }
-
     template <class T, class U>
     string Pair<T, U>::ToString() const
     {
@@ -94,6 +78,21 @@ namespace queue
 
     template <class T, class U>
     ostream& operator<<(ostream& out, const Pair<T, U>& pair)
+    {
+        return out << "(" << pair.first() << "; " << pair.second() << ")";
+    }
+
+    /*template <class T, class U>
+    wstring Pair<T, U>::ToString() const
+    {
+        wstringstream buffer{};
+        buffer << << first_element << ", " << second_element;;
+
+        return buffer.str();
+    }*/
+
+    template <class T, class U>
+    wostream& operator<<(ostream& out, const Pair<T, U>& pair)
     {
         return out << "(" << pair.first() << "; " << pair.second() << ")";
     }
