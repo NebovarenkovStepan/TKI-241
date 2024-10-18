@@ -14,13 +14,10 @@ namespace queue
     string ToString(const Pair<T, U>& pair);
 
     template <class T, class U>
-    ostream& operator<<(ostream& out, const Pair<T, U>& pair);
-
-    /*template <class T, class U>
-    wstring ToString(const Pair<T, U>& pair);
+    ostream& operator<<(ostream& out, const Pair<T, U>& pair) ;
 
     template <class T, class U>
-    wostream& operator<<(ostream& out, const Pair<T, U>& pair);*/
+    wostream& operator<<(wostream& out, const Pair<T, U>& pair);
 
     template <class T, class U>
     struct Pair
@@ -52,8 +49,9 @@ namespace queue
     Pair<T, U>::Pair(T first_element, U second_element) : first_element(first_element), second_element(second_element) {}
 
     template<class T, class U>
-    inline Pair<T, U>::Pair()
+    inline Pair<T, U>::Pair() : first_element(), second_element()
     {
+
     }
 
     template <class T, class U>
@@ -82,17 +80,8 @@ namespace queue
         return out << "(" << pair.first() << "; " << pair.second() << ")";
     }
 
-    /*template <class T, class U>
-    wstring Pair<T, U>::ToString() const
-    {
-        wstringstream buffer{};
-        buffer << << first_element << ", " << second_element;;
-
-        return buffer.str();
-    }*/
-
     template <class T, class U>
-    wostream& operator<<(ostream& out, const Pair<T, U>& pair)
+    wostream& operator<<(wostream& out, const Pair<T, U>& pair)
     {
         return out << "(" << pair.first() << "; " << pair.second() << ")";
     }
