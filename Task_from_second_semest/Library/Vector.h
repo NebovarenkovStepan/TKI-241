@@ -30,6 +30,7 @@ namespace queue
         Vector(initializer_list<T> values);
         Vector(const Vector<T>& other);
         Vector<T>(Vector<T>&& other);
+        void Swap(Vector<T>& other) noexcept;
         ~Vector();
         void push_back(const T& element);
         Vector<T>& operator=(const Vector& other);
@@ -59,15 +60,15 @@ namespace queue
     {
         if (index > this->size)
         {
-            throw logic_error("Индекс должен быть меньше размера вектора!");
+            throw logic_error("РРЅРґРµРєСЃ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РјРµРЅСЊС€Рµ СЂР°Р·РјРµСЂР° РІРµРєС‚РѕСЂР°!");
         }
         return array[index];
     }
 
     template<typename T>
-    Vector<T>::Vector(Vector<T>&& other) : size(other.size), array(other.array), capacity(other.capacity)
+    Vector<T>::Vector(Vector<T>&& other) : array(other.array)
     {
-        other.array = nullptr;
+        *this = move(other);
     }
 
     template<typename T>
@@ -96,7 +97,7 @@ namespace queue
     {
         if (size <= 0)
         {
-            throw std::logic_error("Размер массива должен быть неотрицательным!");
+            throw std::logic_error("Р Р°Р·РјРµСЂ РјР°СЃСЃРёРІР° РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РЅРµРѕС‚СЂРёС†Р°С‚РµР»СЊРЅС‹Рј!");
         }
         this->size = static_cast<size_t>(size);
         if (this->is_full())
@@ -136,9 +137,7 @@ namespace queue
         if (this != &other)
         {
             Vector temp(other);
-            swap(temp.array, this->array);
-            swap(temp.size, this->size);
-            swap(temp.capacity, this->capacity);
+            this->Swap(temp);
         }
         return *this;
     }
@@ -148,7 +147,7 @@ namespace queue
     {
         if (this != &other)
         {
-            this = other;
+            this->Swap(other);
         }
 
         return *this;
@@ -158,6 +157,14 @@ namespace queue
     inline T Vector<T>::operator[](size_t index) const
     {
         return this->array[index];
+    }
+
+    template<typename T>
+    inline void Vector<T>::Swap(Vector<T>& other) noexcept
+    {
+        std::swap(other.capacity, this->capacity);
+        std::swap(other.data, this->data);
+        std::swap(other.size, this->size);
     }
 
     template <class T>
@@ -176,20 +183,8 @@ namespace queue
     template<typename T>
     wstring ToString(const Vector<T>& vector)
     {
-        wstringstream out{};
-        out << L"[";
-        size = this->size;
-        for (size_t i = 0; i < size; i++)
-        {
-            out << vector[i];
-            if (i < size)
-            {
-                out << L", ";
-            }
-        }
-        out << L"]";
-
-        return out.str();
+        auto temp = vector.ToString();
+        return wstring{ temp.cbegin(), temp.cend() };
     }
 
     template <class T>
@@ -199,12 +194,12 @@ namespace queue
     }
 
     template<typename T>
-    wostream& operator<<(std::wostream& os, const Vector<T>& vector)
+    wostream& operator<<(wostream& out, const Vector<T>& vector)
     {
-        auto temp = vector.ToString();
-        wstring ws{ temp.cbegin(), temp.cend() };
+        /*auto temp = vector.ToString();
+        wstring ws{ temp.cbegin(), temp.cend() };*/
 
-        return os << ws;
+        return out << ToString(vector);
     }
 
     template<typename T>
