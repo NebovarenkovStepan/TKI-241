@@ -22,6 +22,8 @@ namespace hash
 		int start(const string& str, const int size);
 		int step(const string& str, const int size);
 		void resize();
+		void rehash();
+		void deleter(auto&& array_to_delete, size_t size_of_array);
 		struct element
 		{
 			T value;
@@ -73,8 +75,12 @@ namespace hash
 	HashTable<T>::~HashTable()
 	{
 		for (size_t i = 0; i < this->size; ++i)
+		{
 			if (array[i])
+			{
 				delete array[i];
+			}
+		}
 		delete[] array;
 	}
 
@@ -83,7 +89,9 @@ namespace hash
 	{
 		int hash_result = 0;
 		for (int i = 0; str[i] != str.size(); ++i)
+		{
 			hash_result = (key * hash_result + s[i]) % size;
+		}
 		hash_result = (hash_result * 2 + 1) % size;
 		return hash_result;
 	}
@@ -112,9 +120,47 @@ namespace hash
 		for (size_t i = 0; i < prev_size; ++i)
 		{
 			if (new_array[i] && new_array[i]->state)
+			{
 				add_element(new_array[i]->value);
+			}
 		}
-		
+
+		deleter(new_array, prev_size);
+	}
+
+	template<typename T>
+	inline void HashTable<T>::rehash()
+	{
+		amount_of_elements = 0;
+		counter = 0;
+		element** new_array = new element * [this->size];
+		for (size_t i = 0; i < this->size; ++i)
+		{
+			new_array[i] = nullptr;
+		}
+		swap(this->array, new_array);
+		for (size_t i = 0; i < prev_size; ++i)
+		{
+			if (new_array[i] && new_array[i]->state)
+			{
+				add_element(new_array[i]->value);
+			}
+		}
+
+		deleter(new_array, this->size);
+	}
+
+	template<typename T>
+	inline void HashTable<T>::deleter(auto&& array_to_delete, size_t size_of_array)
+	{
+		for (size_t i = 0; i  < size_of_array; ++i)
+		{
+			if (array_to_delete[i])
+			{
+				delete array_to_delete[i];
+			}
+		}
+		delete[] array_to_delete;
 	}
 
 
