@@ -192,9 +192,6 @@ namespace queue
     template<typename T>
     wostream& operator<<(wostream& out, const Vector<T>& vector)
     {
-        /*auto temp = vector.ToString();
-        wstring ws{ temp.cbegin(), temp.cend() };*/
-
         return out << ToString(vector);
     }
 
@@ -208,10 +205,6 @@ namespace queue
     inline void Vector<T>::expand()
     {
         Vector temp(this->size);
-        //for (size_t i = 0; i < this->size; ++i)
-        //{
-        //    temp.data[i] = this->data[i];
-        //}
         std::copy(this->array, this->array + this->size, temp.array);
 
         this->swap(temp);
