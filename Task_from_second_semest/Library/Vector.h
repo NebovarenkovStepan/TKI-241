@@ -160,7 +160,7 @@ namespace queue
     inline void Vector<T>::swap(Vector<T>& other) noexcept
     {
         std::swap(other.capacity, this->capacity);
-        std::swap(other.data, this->data);
+        std::swap(other.array, this->array);
         std::swap(other.size, this->size);
     }
 
@@ -173,7 +173,6 @@ namespace queue
         }
 
         this->array[this->size++] = element;
-        return *this;
     }
 
 
@@ -209,11 +208,12 @@ namespace queue
     inline void Vector<T>::expand()
     {
         Vector temp(this->size);
-        for (size_t i = 0; i < this->size; ++i)
-        {
-            temp.data[i] = this->data[i];
-        }
+        //for (size_t i = 0; i < this->size; ++i)
+        //{
+        //    temp.data[i] = this->data[i];
+        //}
+        std::copy(this->array, this->array + this->size, temp.array);
 
-        this = temp;
+        this->swap(temp);
     }
 }
