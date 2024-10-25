@@ -30,7 +30,6 @@ namespace queue
         Vector(initializer_list<T> values);
         Vector(const Vector<T>& other);
         Vector<T>(Vector<T>&& other);
-        void Swap(Vector<T>& other) noexcept;
         ~Vector();
         void push_back(const T& element);
         Vector<T>& operator=(const Vector& other);
@@ -38,17 +37,18 @@ namespace queue
         T& operator[](size_t index);
         T operator[](size_t index) const;
        
-        string ToString() const;
+        string to_string() const;
         size_t get_size() const;
 
     private:
-        T* array;
         size_t size;
         size_t capacity;
+        T* array;
 
         bool is_full() const noexcept;
 
         void expand();
+        void swap(Vector<T>& other) noexcept;
     };
 
 }
@@ -72,7 +72,7 @@ namespace queue
     }
 
     template<typename T>
-    inline string Vector<T>::ToString() const
+    inline string Vector<T>::to_string() const
     {
         stringstream buffer{};
         buffer << "[";
@@ -93,36 +93,33 @@ namespace queue
     }
 
     template<class T>
-    Vector<T>::Vector(const int size) : size(size), capacity(size)
+    Vector<T>::Vector(const int size) : Vector()
     {
         if (size <= 0)
         {
             throw std::logic_error("Размер массива должен быть неотрицательным!");
         }
-        this->size = static_cast<size_t>(size);
-        if (this->is_full())
-        {
-            this->capacity = this->size * 2;
-        }
 
+        this->size = static_cast<size_t>(size);
+        this->capacity = this->size * 2;
         this->array = new T[this->capacity];
     }
 
     template<typename T>
-    Vector<T>::Vector() : array(nullptr), size(0), capacity(0)
+    Vector<T>::Vector() : size(0), capacity(0), array(nullptr)
     {
     }
 
     template<class T>
     Vector<T>::Vector(initializer_list<T> values) : size(values.size()), capacity(values.size()), array(new T[this->capacity])
     {
-        copy(values.begin(), values.end(), this->array);
+        std::copy(values.begin(), values.end(), this->array);
     }
 
     template<class T>
     Vector<T>::Vector(const Vector<T>& other) : size(other.size), capacity(other.capacity), array(new T[this->capacity])
     {
-        copy(this->array, this->array + this->size, other.array);
+        std::copy(other.array, other.array + other.size, this->array);
     }
 
     template <class T>
@@ -137,7 +134,7 @@ namespace queue
         if (this != &other)
         {
             Vector temp(other);
-            this->Swap(temp);
+            this->swap(temp);
         }
         return *this;
     }
@@ -147,7 +144,7 @@ namespace queue
     {
         if (this != &other)
         {
-            this->Swap(other);
+            this->swap(other);
         }
 
         return *this;
@@ -160,7 +157,7 @@ namespace queue
     }
 
     template<typename T>
-    inline void Vector<T>::Swap(Vector<T>& other) noexcept
+    inline void Vector<T>::swap(Vector<T>& other) noexcept
     {
         std::swap(other.capacity, this->capacity);
         std::swap(other.data, this->data);
@@ -183,14 +180,14 @@ namespace queue
     template<typename T>
     wstring ToString(const Vector<T>& vector)
     {
-        auto temp = vector.ToString();
+        auto temp = vector.to_string();
         return wstring{ temp.cbegin(), temp.cend() };
     }
 
     template <class T>
     ostream& operator<<(ostream& out, const Vector<T>& vector)
     {
-        return out << vector.ToString();
+        return out << vector.to_string();
     }
 
     template<typename T>
