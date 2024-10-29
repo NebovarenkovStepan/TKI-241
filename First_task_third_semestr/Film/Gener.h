@@ -11,7 +11,7 @@ namespace film
 {
 	struct Genres
 	{
-		vector<string> genres;
+		vector<unique_ptr<string>> genres;
 
 		void add_genre(const string& genre);
 		string get_genres();

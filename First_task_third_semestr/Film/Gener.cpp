@@ -4,7 +4,7 @@ namespace film
 {
 	void Genres::add_genre(const string& genre)
 	{
-		genres.push_back(genre);
+		genres.push_back(make_unique<string>(genre));
 	}
 
 	string Genres::get_genres()
@@ -14,9 +14,9 @@ namespace film
 		size_t i = 0;
 		for (; i < genres.size() - 1; i++)
 		{
-			buffer << genres[i] << ", ";
+			buffer << *genres[i] << ", ";
 		}
-		buffer << genres[i + 1] << ".\n";
+		buffer << *genres[i + 1] << ".\n";
 		return buffer.str();
 	}
 }
