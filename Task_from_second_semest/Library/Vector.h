@@ -58,7 +58,7 @@ namespace queue
     template <class T>
     T& Vector<T>::operator[](size_t index)
     {
-        if (index > this->size)
+        if (index >= this->size)
         {
             throw logic_error("Индекс должен быть меньше размера вектора!");
         }
