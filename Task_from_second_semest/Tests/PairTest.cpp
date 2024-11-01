@@ -34,7 +34,7 @@ namespace Tests
 			Pair<int, int> pair2(0, 0);
 
 			// assert
-			Assert::AreEqual(pair1, pair2);
+			Assert::AreEqual(pair1.ToString(), pair2.ToString());
 		}
 
 		TEST_METHOD(IntPairFirst_GetFirstElement_Success)
@@ -62,7 +62,7 @@ namespace Tests
 			// assert
 			Assert::AreEqual(actual, expected);
 		}
-
+		
 		TEST_METHOD(StringToString_ZeroData_Success)
 		{
 			// arrange
@@ -83,7 +83,7 @@ namespace Tests
 			Pair<string, string> pair2("0", "0");
 
 			// assert
-			Assert::AreEqual(pair1, pair2);
+			Assert::AreEqual(pair1.ToString(), pair2.ToString());
 		}
 
 		TEST_METHOD(StringPairFirst_GetFirstElement_Success)
@@ -116,7 +116,7 @@ namespace Tests
 		{
 			// arrange
 			Pair<Vector<int>, Vector<int>> pair({0, 0}, {0, 0});
-			string expected{ "0, 0" };
+			string expected{ "[0, 0], [0, 0]"};
 
 			// act
 			auto actual = pair.ToString();
@@ -132,7 +132,7 @@ namespace Tests
 			Pair<Vector<int>, Vector<int>> pair2({1, 2}, {1, 2});
 
 			// assert
-			Assert::AreEqual(pair1, pair2);
+			Assert::AreEqual(pair1.ToString(), pair2.ToString());
 		}
 
 		TEST_METHOD(VectorPairFirst_GetFirstElement_Success)
@@ -145,7 +145,7 @@ namespace Tests
 			auto actual = pair.first();
 
 			// assert
-			Assert::AreEqual(actual, expected);
+			Assert::AreEqual(actual.to_string(), expected.to_string());
 		}
 
 		TEST_METHOD(VectorPairSecond_GetSecondElement_Success)
@@ -160,7 +160,7 @@ namespace Tests
 			auto actual = pair.second();
 
 			// assert
-			Assert::AreEqual(actual, expected);
+			Assert::AreEqual(actual.to_string(), expected.to_string());
 		}
 	};
 }

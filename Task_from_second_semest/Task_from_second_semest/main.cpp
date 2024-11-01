@@ -7,15 +7,15 @@ using namespace queue;
 
 int main()
 {
-	Pair<int, double> a( 1, 1.5 );
+	Pair<int, double> a( 0, 0 );
 	Vector<int> p = { 1, 2, 3 };
 	p.push_back(4);
 	p.push_back(5);
 	p.push_back(6);
 	p.push_back(7);
-	Vector<Pair<int, double>> u{ a, a, a };
+	Vector<Pair<int, double>> u{ a, a};
 	u.push_back(a);
-	Pair<Pair<int, double>, Pair<int, double>> vect( a, a );
-	cout << u;
+	Pair<Vector<Pair<int, double>>, Vector<Pair<int, double>>> vect( u, u );
+	cout << vect;
 	return 0;
 };
