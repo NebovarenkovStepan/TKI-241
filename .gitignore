@@ -346,3 +346,7 @@ FodyWeavers.xsd
 # Windows Installer files from build outputs
 # JetBrains Rider
 *.sln.iml
+### Doxygen ###
+html
+latex
+
