@@ -1,25 +1,32 @@
 #include "people.h"
 
-film::Person::Person(string name, string surname, string patronymic) : name(name), surname(surname), patronymic(patronymic){}
-
-string film::Person::ToString() const
+namespace film
 {
-    stringstream buffer{};
-    buffer << name << " " << surname << " " << patronymic;
-    return buffer.str();
-}
 
-string film::Person::get_name()
-{
-    return name;
-}
 
-string film::Person::get_surname()
-{
-    return surname;
-}
+    Person::Person(string& name, string& surname, string& patronymic, shared_ptr<Movie> movie) : name(name), surname(surname), patronymic(patronymic), movie(move(movie)) {}
+    Person::Person(string& name, string& surname, shared_ptr<Movie> movie) : name(name), surname(surname), patronymic(""), movie(move(movie)) {}
 
-string film::Person::get_patronymic()
-{
-    return patronymic;
+    string Person::ToString() const
+    {
+        stringstream buffer{};
+        buffer << name << " " << surname << " " << patronymic;
+        return buffer.str();
+    }
+
+    string Person::get_name()
+    {
+        return name;
+    }
+
+    string Person::get_surname()
+    {
+        return surname;
+    }
+
+    string Person::get_patronymic()
+    {
+        return patronymic;
+    }
+
 }

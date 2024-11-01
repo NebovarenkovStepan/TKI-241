@@ -4,16 +4,24 @@
 #include <ostream>
 #include <vector>
 #include <string>
+#include "film.h"
 
 using namespace std;
 
 namespace film
 {
-	struct Genres
+	class Genres
 	{
-		vector<unique_ptr<string>> genres;
-
+	private:
+		
+		shared_ptr<Movie> movie;
+		vector<weak_ptr<string>> genres;
 		void add_genre(const string& genre);
-		string get_genres();
+
+	public:
+		Genres();
+		Genres(vector<weak_ptr<string>> geners, shared_ptr<Movie> movie);
+
+		string get_genres() const;
 	};
 }

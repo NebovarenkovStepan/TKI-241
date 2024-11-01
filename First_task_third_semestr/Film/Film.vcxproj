@@ -128,14 +128,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="film.cpp" />
+    <ClCompile Include="Film.cpp" />
     <ClCompile Include="Gener.cpp" />
     <ClCompile Include="people.cpp" />
     <ClCompile Include="Sale.cpp" />
     <ClCompile Include="Storage.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="film.h" />
+    <ClInclude Include="Film.h" />
     <ClInclude Include="Gener.h" />
     <ClInclude Include="people.h" />
     <ClInclude Include="Sale.h" />
