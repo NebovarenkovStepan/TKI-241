@@ -1,32 +1,58 @@
 #include "people.h"
+#include <sstream>
 
-namespace film
-{
+namespace film {
 
+    Person::Person(const string& name, const string& surname, const std::optional<string>& patronymic)
+        : name(name), surname(surname), patronymic(patronymic) {
+        stringstream buffer{};
+        if (this->patronymic.has_value()) {
+            buffer << this->name << " " << this->surname << " " << this->patronymic.value();
+        }
+        else {
+            buffer << this->name << " " << this->surname;
+        }
+        this->full_name = buffer.str();
+    }
 
-    Person::Person(string& name, string& surname, string& patronymic, shared_ptr<Movie> movie) : name(name), surname(surname), patronymic(patronymic), movie(move(movie)) {}
-    Person::Person(string& name, string& surname, shared_ptr<Movie> movie) : name(name), surname(surname), patronymic(""), movie(move(movie)) {}
+    Person::~Person() {}
+
+    void Person::add_film_directors(shared_ptr<Movie>& movie)
+    {
+        this->movies.push_back(movie);
+        movie->get_directors().push_back(shared_from_this());
+    }
+
+    void Person::add_film_actors(shared_ptr<Movie>& movie)
+    {
+        this->movies.push_back(movie);
+        movie->get_actors().push_back(shared_from_this());
+    }
 
     string Person::ToString() const
     {
         stringstream buffer{};
-        buffer << name << " " << surname << " " << patronymic;
+        buffer << this->full_name;
         return buffer.str();
     }
 
-    string Person::get_name()
+    string Person::get_name() const 
     {
-        return name;
+        return this->name;
     }
 
-    string Person::get_surname()
+    string Person::get_surname() const 
     {
-        return surname;
+        return this->surname;
     }
 
-    string Person::get_patronymic()
+    string Person::get_patronymic() const 
     {
-        return patronymic;
+        return this->patronymic.has_value() ? this->patronymic.value() : "Empty";
     }
 
+    shared_ptr<Person> Person::create_person(const string& name, const string& surname, const optional<string>& patronymic) 
+    {
+        return make_shared<Person>(name, surname, patronymic);
+    }
 }

@@ -6,29 +6,37 @@
 #include <memory>
 #include <algorithm>
 #include <unordered_map>
-
+#include "people.h"
 #include "Gener.h"
+#include "Storage.h"
 
 using namespace std;
 
 namespace film 
 {
+    class Order;
+    class Genre;
+    class People;
+    class Storage;
 
-    class Movie 
+    class Movie final : public enable_shared_from_this<Movie>
     {
     private:
         string title;
-        vector<weak_ptr<string>> genres;
-        vector<weak_ptr<string>> directors;
-        vector<weak_ptr<string>> actors;
+        vector<shared_ptr<string>> genres;
+        vector<shared_ptr<Person>> directors;
+        vector<shared_ptr<Person>> actors;
 
     public:
-        Movie(string title, vector<weak_ptr<string>> genres, vector<weak_ptr<string>> directors);
+        Movie(const string& title, vector<shared_ptr<string>> genres, vector<shared_ptr<Person>> directors, vector<shared_ptr<Person>> actors);
 
+        static shared_ptr<Movie>create_movie(const string& title, vector<shared_ptr<string>> genres, vector<shared_ptr<Person>> directors, vector<shared_ptr<Person>> actors);
         string get_title() const;
-        vector<weak_ptr<string>> get_genre() const;
-        vector<weak_ptr<string>> get_director() const;
-        vector<weak_ptr<string>> get_actors() const;
+        shared_ptr<Storage> storage;
+        string to_string();
+        vector<shared_ptr<string>> get_genres() const;
+        vector<shared_ptr<Person>> get_directors() const;
+        vector<shared_ptr<Person>> get_actors() const;
     };
 
 }

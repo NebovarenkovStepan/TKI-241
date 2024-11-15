@@ -4,7 +4,7 @@
 #include <ostream>
 #include <vector>
 #include <string>
-#include "film.h"
+#include "Film.h"
 
 using namespace std;
 
@@ -15,13 +15,13 @@ namespace film
 	private:
 		
 		shared_ptr<Movie> movie;
-		vector<weak_ptr<string>> genres;
-		void add_genre(const string& genre);
+		vector<shared_ptr<string>> genres;
+		
 
 	public:
 		Genres();
-		Genres(vector<weak_ptr<string>> geners, shared_ptr<Movie> movie);
-
+		Genres(vector<shared_ptr<string>> geners, shared_ptr<Movie> movie);
+		void add_genre(const string& genre);
 		string get_genres() const;
 	};
 }

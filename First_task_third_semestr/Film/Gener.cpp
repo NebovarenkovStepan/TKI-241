@@ -6,12 +6,12 @@ namespace film
     {
         shared_ptr<string> genre_ptr = make_shared<string>(genre);
 
-        genres.push_back(weak_ptr<string>(genre_ptr));
+        genres.push_back(shared_ptr<string>(genre_ptr));
     }
 
     Genres::Genres() : genres(), movie(){}
 
-    Genres::Genres(vector<weak_ptr<string>> geners, shared_ptr<Movie> movie) : genres(genres), movie(move(movie))
+    Genres::Genres(vector<shared_ptr<string>> geners, shared_ptr<Movie> movie) : genres(genres), movie(move(movie))
     {
     }
 
@@ -22,13 +22,10 @@ namespace film
 
         for (size_t i = 0; i < genres.size(); ++i)
         {
-            if (auto genre_ptr = genres[i].lock()) 
+            buffer << *genres[i];
+            if (i < genres.size() - 1)
             {
-                buffer << *genre_ptr;
-                if (i < genres.size() - 1)
-                {
-                    buffer << ", ";
-                }
+                buffer << ", ";
             }
         }
         buffer << ".\n";

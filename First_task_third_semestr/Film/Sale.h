@@ -11,11 +11,13 @@ namespace film
 {
 	class Sale
 	{
+	private:
 		shared_ptr<Storage> storage;
 		double sale;
 
-		Sale(double& sale, shared_ptr<Storage> storage);
-		void set_sale(const double& new_sale);
+	public:
+		Sale(double sale, shared_ptr<Storage> storage);
+		void set_sale(const double new_sale);
 		double get_sale();
 	};
 }

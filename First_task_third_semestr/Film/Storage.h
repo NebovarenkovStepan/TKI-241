@@ -1,31 +1,42 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <memory> 
-#include "film.h"
+#include <memory>
+#include <variant>
+#include "Film.h"
 
 using namespace std;
 
 namespace film
 {
-    class Storage
+    class Film;
+    class Storage;
+
+    class Storage final : public enable_shared_from_this<Storage>
     {
-    /*
+
     private:
-        vector<shared_ptr<Movie>> movies; 
+
+        vector<Movie*> movies;
+        string name;
 
     public:
-        void add_movie(const shared_ptr<Movie>& movie); 
 
-        shared_ptr<Movie> search_by_title(const string& title); 
+        Storage(const string& name);
 
-        vector<shared_ptr<Movie>> search_by_genre(const string& genre); 
+        static shared_ptr<Storage> create_storage(const string& name);
 
-        vector<shared_ptr<Movie>> search_by_director(const string& director); 
+        void add_movie(shared_ptr<Movie> movie);
 
-        vector<shared_ptr<Movie>> search_by_actor(const string& actor); 
+        string search_by_title(const string& title); 
 
-        vector<shared_ptr<Movie>> get_top_selling_movies(int top); 
+        vector<Movie> search_by_genre(const string& genre); 
+
+        vector<Movie> search_by_director(const string& director);
+
+        vector<Movie> search_by_actor(const string& actor);
+
+        /*vector<shared_ptr<Movie>> get_top_selling_movies(int top);
 
         double get_total_sales();*/
     };
