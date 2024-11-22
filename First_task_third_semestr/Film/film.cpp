@@ -4,11 +4,11 @@ using namespace std;
 
 namespace film
 {
-		Movie::Movie(const string& title, vector<shared_ptr<string>> genres, vector<shared_ptr<Person>> directors, vector<shared_ptr<Person>> actors) : title(title), genres(genres), directors(directors), actors(actors){}
+		Movie::Movie(const string& title, const double& price, vector<shared_ptr<string>> genres, vector<shared_ptr<Person>> directors, vector<shared_ptr<Person>> actors) : title(title), price(price), genres(genres), directors(directors), actors(actors){}
 
-		shared_ptr<Movie> Movie::create_movie(const string& title, vector<shared_ptr<string>> genres, vector<shared_ptr<Person>> directors, vector<shared_ptr<Person>> actors)
+		shared_ptr<Movie> Movie::create_movie(const string& title, const double& price, vector<shared_ptr<string>> genres, vector<shared_ptr<Person>> directors, vector<shared_ptr<Person>> actors)
 		{
-			return make_shared<Movie>(Movie{ title, genres, directors,  actors});
+			return make_shared<Movie>(Movie{title, price, genres, directors,  actors});
 		}
 
 		string Movie::get_title() const
@@ -16,7 +16,7 @@ namespace film
 			return title;
 		}
 
-		string Movie::to_string()
+		string Movie::to_string() const
 		{
 			stringstream buffer;
 
@@ -55,6 +55,8 @@ namespace film
 				}
 			}
 			buffer << ".\n";
+
+			return buffer.str();
 		}
 
 		vector<shared_ptr<string>> Movie::get_genres() const
@@ -70,5 +72,20 @@ namespace film
 		vector<shared_ptr<Person>> Movie::get_actors() const
 		{
 			return this->actors;
+		}
+		double Movie::get_price() const
+		{
+			return this->price;
+		}
+
+		wstring to_string(const Movie& movie)
+		{
+			auto temp = movie.to_string();
+			return { temp.cbegin(), temp.cend() };
+		}
+
+		bool operator==(const Movie& lha, const Movie& rha)
+		{
+			return lha.to_string() == rha.to_string();
 		}
 }

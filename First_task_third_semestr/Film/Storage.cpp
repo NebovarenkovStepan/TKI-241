@@ -15,7 +15,13 @@ namespace film
     void Storage::add_movie(shared_ptr<Movie> movie)
     {
         this->movies.push_back(movie.get());
-        movie.get()->storage = shared_from_this();
+        movie.get()-> storage = shared_from_this();
+    }
+
+    void Storage::remove_movie(shared_ptr<Movie> movie)
+    {
+        this->movies.erase(std::remove(this->movies.begin(), this->movies.end(), movie.get()), this->movies.end());
+        movie.get()-> storage = nullptr;
     }
 
     string Storage::search_by_title(const string& title)
@@ -72,30 +78,25 @@ namespace film
         return result;
     }
 
-    /*vector<shared_ptr<Movie>> Storage::get_top_selling_movies(int top)
+    Movie Storage::get_top_sale_movie(vector<pair<shared_ptr<Movie>, int>> sales)
     {
-        vector<shared_ptr<Movie>> sortedMovies = movies;
-        sort(sortedMovies.begin(), sortedMovies.end(), [](const shared_ptr<Movie>& a, const shared_ptr<Movie>& b)
+        if (sales.empty())
+        {
+            throw ("No sales available.");
+        }
+
+        int max_sales = 0;
+        shared_ptr<Movie> top_movie = nullptr;
+
+        for (const auto& sale : sales)
+        {
+            if (sale.second > max_sales)
             {
-                return a->get_total_sales() > b->get_total_sales();
-            });
-
-        if (top > sortedMovies.size())
-        {
-            top = sortedMovies.size();
+                max_sales = sale.second;
+                top_movie = sale.first;
+            }
         }
 
-        return vector<shared_ptr<Movie>>(sortedMovies.begin(), sortedMovies.begin() + top);
+        return *top_movie;
     }
-
-    double Storage::get_total_sales()
-    {
-        double totalSales = 0;
-        for (const auto& movie : movies)
-        {
-            totalSales += movie->get_total_sales();
-
-            return totalSales;
-        }
-    }*/
 }

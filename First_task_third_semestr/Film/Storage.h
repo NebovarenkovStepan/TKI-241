@@ -11,6 +11,7 @@ namespace film
 {
     class Film;
     class Storage;
+    class Order;
 
     class Storage final : public enable_shared_from_this<Storage>
     {
@@ -28,6 +29,8 @@ namespace film
 
         void add_movie(shared_ptr<Movie> movie);
 
+        void remove_movie(shared_ptr<Movie> movie);
+
         string search_by_title(const string& title); 
 
         vector<Movie> search_by_genre(const string& genre); 
@@ -36,8 +39,6 @@ namespace film
 
         vector<Movie> search_by_actor(const string& actor);
 
-        /*vector<shared_ptr<Movie>> get_top_selling_movies(int top);
-
-        double get_total_sales();*/
+        Movie get_top_sale_movie(vector<pair<shared_ptr<Movie>, int>> sales);
     };
 }
