@@ -10,18 +10,20 @@ using namespace std;
 
 namespace film
 {
-	class Genres
+	class Genre final : public std::enable_shared_from_this<Genre>
 	{
 	private:
 		
+		vector<Movie*> movies;
 		shared_ptr<Movie> movie;
-		vector<shared_ptr<string>> genres;
+		string genre;
 		
 
 	public:
-		Genres();
-		Genres(vector<shared_ptr<string>> geners, shared_ptr<Movie> movie);
-		void add_genre(const string& genre);
-		string get_genres() const;
+		Genre(string genre);
+		static shared_ptr<Genre> create_genre(string genre);
+		Genre(string genre, shared_ptr<Movie> movie);
+		void add_movie(shared_ptr<Movie> movie);
+		string get_genre() const;
 	};
 }

@@ -4,9 +4,9 @@ using namespace std;
 
 namespace film
 {
-		Movie::Movie(const string& title, const double& price, vector<shared_ptr<string>> genres, vector<shared_ptr<Person>> directors, vector<shared_ptr<Person>> actors) : title(title), price(price), genres(genres), directors(directors), actors(actors){}
+		Movie::Movie(const string& title, const double& price, vector<shared_ptr<Genre>> genres, vector<shared_ptr<Person>> directors, vector<shared_ptr<Person>> actors) : title(title), price(price), genres(genres), directors(directors), actors(actors){}
 
-		shared_ptr<Movie> Movie::create_movie(const string& title, const double& price, vector<shared_ptr<string>> genres, vector<shared_ptr<Person>> directors, vector<shared_ptr<Person>> actors)
+		shared_ptr<Movie> Movie::create_movie(const string& title, const double& price, vector<shared_ptr<Genre>> genres, vector<shared_ptr<Person>> directors, vector<shared_ptr<Person>> actors)
 		{
 			return make_shared<Movie>(Movie{title, price, genres, directors,  actors});
 		}
@@ -26,7 +26,7 @@ namespace film
 			buffer << "Directors: ";
 			for (size_t i = 0; i < directors.size(); ++i)
 			{
-				buffer << directors[i]->ToString();
+				buffer << directors[i]->to_string();
 				if (i < directors.size() - 1)
 				{
 					buffer << ", ";
@@ -37,7 +37,7 @@ namespace film
 			buffer << "Genres: ";
 			for (size_t i = 0; i < genres.size(); ++i)
 			{
-				buffer << *genres[i];
+				buffer << genres[i];
 				if (i < genres.size() - 1)
 				{
 					buffer << ", ";
@@ -48,7 +48,7 @@ namespace film
 			buffer << "Actors: ";
 			for (size_t i = 0; i < actors.size(); ++i)
 			{
-				buffer << actors[i]->ToString();
+				buffer << actors[i]->to_string();
 				if (i < actors.size() - 1)
 				{
 					buffer << ", ";
@@ -59,7 +59,7 @@ namespace film
 			return buffer.str();
 		}
 
-		vector<shared_ptr<string>> Movie::get_genres() const
+		vector<shared_ptr<Genre>> Movie::get_genres() const
 		{
 			return this->genres;
 		}

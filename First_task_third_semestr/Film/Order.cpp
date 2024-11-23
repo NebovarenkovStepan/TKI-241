@@ -2,7 +2,7 @@
 
 namespace film
 {
-    Order::Order(const string& title) : order_date(get_current_time()), title(title)
+    Order::Order(const string& title) : title(title)
     {
         
     }
@@ -14,7 +14,7 @@ namespace film
 
     void Order::add_oder(shared_ptr<Movie> movie)
     {
-        pair<shared_ptr<Movie>, string> order(movie.get(), this->order_date);
+        pair<shared_ptr<Movie>, chrono::system_clock::time_point> order(movie.get(), chrono::system_clock::now());
         this->orders.push_back(order);
         add_sale(movie);
         movie.get()->order = shared_from_this();
@@ -32,18 +32,5 @@ namespace film
         {
             sales.emplace_back(movie, 1);
         }
-    }
-
-	string Order::get_current_time()
-    {
-        auto now = chrono::system_clock::now();
-        time_t currentTime = chrono::system_clock::to_time_t(now);
-
-        tm localTime;
-        localtime_s(&localTime, &currentTime);
-
-        ostringstream oss;
-        oss << put_time(&localTime, "%Y-%m-%d %H:%M:%S");
-        return oss.str();
     }
 }

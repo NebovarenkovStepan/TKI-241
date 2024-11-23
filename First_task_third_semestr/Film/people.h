@@ -24,7 +24,7 @@ namespace film
        void add_film_directors(shared_ptr<Movie>& movie);
        void add_film_actors(shared_ptr<Movie>& movie);
 
-        string ToString() const;
+        string to_string() const;
         string get_name() const;
         string get_surname() const;
         string get_patronymic() const;

@@ -29,7 +29,7 @@ namespace film {
         movie->get_actors().push_back(shared_from_this());
     }
 
-    string Person::ToString() const
+    string Person::to_string() const
     {
         stringstream buffer{};
         buffer << this->full_name;

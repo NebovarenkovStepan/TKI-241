@@ -17,11 +17,9 @@ namespace film
 
     private:
 
-        vector<pair<shared_ptr<Movie>, string>> orders;
-        string order_date;
+        vector<pair<shared_ptr<Movie>, chrono::system_clock::time_point>> orders;
         vector<pair<shared_ptr<Movie>, int>> sales;
         string title;
-        int amount;
 
     public:
 
@@ -29,7 +27,6 @@ namespace film
         static shared_ptr<Order> create_order(const string& title);
         void add_oder(shared_ptr<Movie> movie);
         void add_sale(shared_ptr<Movie> movie);
-        string get_current_time();
     };
 }
 

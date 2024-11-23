@@ -2,32 +2,28 @@
 
 namespace film
 {
-    void Genres::add_genre(const string& genre)
+    void Genre::add_movie(shared_ptr<Movie> movie) 
     {
-        shared_ptr<string> genre_ptr = make_shared<string>(genre);
-
-        genres.push_back(shared_ptr<string>(genre_ptr));
+        this->movies.push_back(movie.get());
+        movie->get_genres().push_back(shared_from_this());
     }
 
-    Genres::Genres() : genres(), movie(){}
+    Genre::Genre(string genre) : genre(genre){}
 
-    Genres::Genres(vector<shared_ptr<string>> geners, shared_ptr<Movie> movie) : genres(genres), movie(move(movie))
+    shared_ptr<Genre> Genre::create_genre(string genre)
+    {
+        return make_shared<Genre>(Genre{ genre });
+    }
+
+    Genre::Genre(const string geners, shared_ptr<Movie> movie) : genre(genre)
     {
     }
 
-    string Genres::get_genres() const
+    string Genre::get_genre() const
     {
         stringstream buffer;
-        buffer << "Genres: \n"; 
-
-        for (size_t i = 0; i < genres.size(); ++i)
-        {
-            buffer << *genres[i];
-            if (i < genres.size() - 1)
-            {
-                buffer << ", ";
-            }
-        }
+        buffer << "Genre: \n";
+        buffer << genre;
         buffer << ".\n";
         return buffer.str();
     }

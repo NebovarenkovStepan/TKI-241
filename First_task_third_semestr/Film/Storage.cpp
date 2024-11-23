@@ -26,55 +26,40 @@ namespace film
 
     string Storage::search_by_title(const string& title)
     {
-        for (const auto& movie : movies)
+        auto it = find_if(movies.begin(), movies.end(), [=](const shared_ptr<Movie>& movie) {return movie->get_title() == title;});
+
+        if (it != movies.end())
         {
-            if (movie->get_title() == title)
-            {
-                return movie->to_string();
-            }
+            return (*it)->to_string();
         }
-        return "There are no movie with this title";
+        return "There are no movies with this title.";
     }
 
     vector<Movie> Storage::search_by_genre(const string& genre)
     {
         vector<Movie> result;
-        for (const auto& movie : movies)
+        transform(movies.begin(), movies.end(), back_inserter(result), [=](const shared_ptr<Movie>& film) 
         {
-            auto genres = movie->get_genres();
-            if (find(genres.begin(), genres.end(), genres) != genres.end())
+            auto genres = film->get_genres();
+            if (find(genres.begin(), genres.end(), genre) != genres.end())
             {
-                result.push_back(*movie);
+                return *film;
             }
-        }
-        return result;
-    }
-
-    vector<Movie> Storage::search_by_director(const string& director)
-    {
-        vector<Movie> result;
-        for (const auto& movie : movies)
-        {
-            auto directors = movie->get_directors();
-            if (find(directors.begin(), directors.end(), director) != directors.end())
-            {
-                result.push_back(*movie);
-            }
-        }
+        });
         return result;
     }
 
     vector<Movie> Storage::search_by_actor(const string& actor)
     {
         vector<Movie> result;
-        for (const auto& movie : movies)
+        transform(movies.begin(), movies.end(), back_inserter(result), [=](const shared_ptr<Movie>& film)
         {
-            auto actors = movie->get_actors();
+            auto actors = film->get_actors();
             if (find(actors.begin(), actors.end(), actor) != actors.end())
             {
-                result.push_back(*movie);
+                return *film;
             }
-        }
+        });
         return result;
     }
 
@@ -82,7 +67,7 @@ namespace film
     {
         if (sales.empty())
         {
-            throw ("No sales available.");
+            throw out_of_range("No sales available.");
         }
 
         int max_sales = 0;
