@@ -16,7 +16,7 @@ namespace film
 {
     class Order;
     class Genre;
-    class People;
+    class Person;
     class Storage;
 
 

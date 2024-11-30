@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <memory>
 #include <sstream>
@@ -13,13 +14,13 @@ class Movie;
 
 namespace film 
 {
+    class Person;
+    bool operator==(const Person& lha, const Person& rha);
 
-    class Person : public std::enable_shared_from_this<Person>
+    class Person final : public std::enable_shared_from_this<Person>
     {
     public:
         Person(const string& name, const string& surname, const std::optional<string>& patronymic);
-
-       ~Person();
 
        void add_film_directors(shared_ptr<Movie>& movie);
        void add_film_actors(shared_ptr<Movie>& movie);

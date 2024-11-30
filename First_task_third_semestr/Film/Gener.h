@@ -10,6 +10,10 @@ using namespace std;
 
 namespace film
 {
+	class Movie;
+	class Genre;
+	bool operator==(const Genre& lha, const Genre& rha);
+
 	class Genre final : public std::enable_shared_from_this<Genre>
 	{
 	private:
@@ -22,7 +26,7 @@ namespace film
 	public:
 		Genre(string genre);
 		static shared_ptr<Genre> create_genre(string genre);
-		Genre(string genre, shared_ptr<Movie> movie);
+		Genre(const string& genre, shared_ptr<Movie> movie);
 		void add_movie(shared_ptr<Movie> movie);
 		string get_genre() const;
 	};

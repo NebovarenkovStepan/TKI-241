@@ -1,12 +1,15 @@
 #include "people.h"
 #include <sstream>
 
-namespace film {
+namespace film 
 
-    Person::Person(const string& name, const string& surname, const std::optional<string>& patronymic)
-        : name(name), surname(surname), patronymic(patronymic) {
+{
+
+    Person::Person(const string& name, const string& surname, const std::optional<string>& patronymic) : name(name), surname(surname), patronymic(patronymic) 
+    {
         stringstream buffer{};
-        if (this->patronymic.has_value()) {
+        if (this->patronymic.has_value()) 
+        {
             buffer << this->name << " " << this->surname << " " << this->patronymic.value();
         }
         else {
@@ -14,8 +17,6 @@ namespace film {
         }
         this->full_name = buffer.str();
     }
-
-    Person::~Person() {}
 
     void Person::add_film_directors(shared_ptr<Movie>& movie)
     {
@@ -54,5 +55,9 @@ namespace film {
     shared_ptr<Person> Person::create_person(const string& name, const string& surname, const optional<string>& patronymic) 
     {
         return make_shared<Person>(name, surname, patronymic);
+    }
+    bool operator==(const Person& lha, const Person& rha)
+    {
+        return lha.to_string() == rha.to_string();
     }
 }

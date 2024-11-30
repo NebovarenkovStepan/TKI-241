@@ -15,7 +15,7 @@ namespace film
         return make_shared<Genre>(Genre{ genre });
     }
 
-    Genre::Genre(const string geners, shared_ptr<Movie> movie) : genre(genre)
+    Genre::Genre(const string& geners, shared_ptr<Movie> movie) : genre(genre), movie(movie)
     {
     }
 
@@ -26,5 +26,9 @@ namespace film
         buffer << genre;
         buffer << ".\n";
         return buffer.str();
+    }
+    bool operator==(const Genre& lha, const Genre& rha)
+    {
+        return lha.get_genre() == rha.get_genre();
     }
 }

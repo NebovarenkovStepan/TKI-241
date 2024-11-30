@@ -4,7 +4,8 @@ using namespace std;
 
 namespace film
 {
-    Storage::Storage(const string& name) : name(name){}
+    Storage::Storage(const string& name) : name(name)
+    {}
 
     shared_ptr<Storage> Storage::create_storage(const string& name)
     {
@@ -26,7 +27,7 @@ namespace film
 
     string Storage::search_by_title(const string& title)
     {
-        auto it = find_if(movies.begin(), movies.end(), [=](const shared_ptr<Movie>& movie) {return movie->get_title() == title;});
+        auto it = find_if(movies.begin(), movies.end(), [=](const Movie* movie) {return movie->get_title() == title;});
 
         if (it != movies.end())
         {
@@ -38,26 +39,40 @@ namespace film
     vector<Movie> Storage::search_by_genre(const string& genre)
     {
         vector<Movie> result;
-        transform(movies.begin(), movies.end(), back_inserter(result), [=](const shared_ptr<Movie>& film) 
+        transform(movies.begin(), movies.end(), back_inserter(result), [=](const Movie* movie)
         {
-            auto genres = film->get_genres();
+            auto genres = movie->get_genres();
             if (find(genres.begin(), genres.end(), genre) != genres.end())
             {
-                return *film;
+                return *movie;
             }
         });
+        return result;
+    }
+
+    vector<Movie> Storage::search_by_director(const string& director)
+    {
+        vector<Movie> result;
+        transform(movies.begin(), movies.end(), back_inserter(result), [=](const Movie* movie)
+            {
+                auto directors = movie->get_directors();
+                if (find(directors.begin(), directors.end(), director) != directors.end())
+                {
+                    return *movie;
+                }
+            });
         return result;
     }
 
     vector<Movie> Storage::search_by_actor(const string& actor)
     {
         vector<Movie> result;
-        transform(movies.begin(), movies.end(), back_inserter(result), [=](const shared_ptr<Movie>& film)
+        transform(movies.begin(), movies.end(), back_inserter(result), [=](const Movie* movie)
         {
-            auto actors = film->get_actors();
+            auto actors = movie->get_actors();
             if (find(actors.begin(), actors.end(), actor) != actors.end())
             {
-                return *film;
+                return *movie;
             }
         });
         return result;
