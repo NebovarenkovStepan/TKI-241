@@ -33,4 +33,14 @@ namespace film
             sales.emplace_back(movie, 1);
         }
     }
+
+    bool operator==(const Order& lha, const Order& rha)
+    {
+        return false;
+    }
+
+    bool operator==(const shared_ptr<Order>& lha, const shared_ptr<Order>& rha)
+    {
+        return false;
+    }
 }

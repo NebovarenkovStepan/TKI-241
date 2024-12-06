@@ -13,6 +13,7 @@ namespace film
 	class Movie;
 	class Genre;
 	bool operator==(const Genre& lha, const Genre& rha);
+	bool operator==(const shared_ptr<Genre>& lha, const shared_ptr<Genre>& rha);
 
 	class Genre final : public std::enable_shared_from_this<Genre>
 	{

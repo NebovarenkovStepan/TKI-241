@@ -99,4 +99,14 @@ namespace film
 
         return *top_movie;
     }
+
+    bool operator==(const Storage& lha, const Storage& rha)
+    {
+        return false;
+    }
+
+    bool operator==(const shared_ptr<Storage>& lha, const shared_ptr<Storage>& rha)
+    {
+        return false;
+    }
 }

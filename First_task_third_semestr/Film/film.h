@@ -22,6 +22,8 @@ namespace film
 
     wstring to_string(const Movie& movie);
     bool operator==(const Movie& lha, const Movie& rha);
+    bool operator==(const shared_ptr<Movie>& lha, const shared_ptr<Movie>& rha);
+
     class Movie final : public enable_shared_from_this<Movie>
     {
     private:

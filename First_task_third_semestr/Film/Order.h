@@ -11,6 +11,8 @@ namespace film
 {
     class Movie;
     class Storage;
+    bool operator==(const Order& lha, const Order& rha);
+    bool operator==(const shared_ptr<Order>& lha, const shared_ptr<Order>& rha);
 
     class Order final : public enable_shared_from_this<Order>
     {

@@ -1,5 +1,7 @@
 #include "people.h"
 #include <sstream>
+#include <string>
+#include <optional>
 
 namespace film 
 
@@ -59,5 +61,10 @@ namespace film
     bool operator==(const Person& lha, const Person& rha)
     {
         return lha.to_string() == rha.to_string();
+    }
+
+    bool operator==(const shared_ptr<Person>& lha, const shared_ptr<Person>& rha)
+    {
+        return lha.get()->to_string() == rha.get()->to_string();
     }
 }

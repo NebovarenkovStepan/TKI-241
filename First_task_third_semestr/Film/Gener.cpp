@@ -27,8 +27,14 @@ namespace film
         buffer << ".\n";
         return buffer.str();
     }
+
     bool operator==(const Genre& lha, const Genre& rha)
     {
         return lha.get_genre() == rha.get_genre();
+    }
+
+    bool operator==(const shared_ptr<Genre>& lha, const shared_ptr<Genre>& rha)
+    {
+        return lha.get()->get_genre() == rha.get()->get_genre();
     }
 }

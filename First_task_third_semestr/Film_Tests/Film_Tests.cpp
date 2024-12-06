@@ -4,11 +4,12 @@
 #include "../Film/people.h"
 #include "pch.h"
 #include "CppUnitTest.h"
+#include <optional>
 
 
 using namespace std;
-using namespace film;
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+using namespace film;
 
 
 namespace FilmTests
@@ -36,7 +37,7 @@ namespace FilmTests
             // arrange
             string name = "Jane";
             string surname = "Doe";
-            optional<string> patronymic = nullptr;
+            optional<string> patronymic = nullopt;
 
             // act
             Person person(name, surname, patronymic);
@@ -50,7 +51,7 @@ namespace FilmTests
         TEST_METHOD(ToString_ZeroData_Success)
         {
             // arrange
-            Person person("Alice", "Wonderland", nullptr);
+            Person person("Alice", "Wonderland", nullopt);
 
             // act
             string actual = person.to_string();
@@ -77,7 +78,7 @@ namespace FilmTests
         TEST_METHOD(GetPatronymic_ZeroData_Success)
         {
             // arrange
-            Person person("Jane", "Doe", nullptr);
+            Person person("Jane", "Doe", nullopt);
 
             // act
             string actual = person.get_patronymic();

@@ -88,4 +88,9 @@ namespace film
 		{
 			return lha.to_string() == rha.to_string();
 		}
+
+		bool operator==(const shared_ptr<Movie>& lha, const shared_ptr<Movie>& rha)
+		{
+			return lha.get()->to_string() == rha.get()->to_string();
+		}
 }
