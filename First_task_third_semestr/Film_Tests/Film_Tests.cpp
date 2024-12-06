@@ -1,6 +1,7 @@
 #include <memory>
 #include <iostream>
 #include "../Film/film.h"
+#include "../Film/people.h"
 #include "pch.h"
 #include "CppUnitTest.h"
 
