@@ -2,7 +2,7 @@
 
 namespace film
 {
-    Order::Order(const string& title) : title(title)
+    Order::Order(const string& title) : title{ title }
     {
         
     }
@@ -12,7 +12,7 @@ namespace film
         return make_shared<Order>(Order{ title });
     }
 
-    void Order::add_oder(shared_ptr<Movie> movie)
+    void Order::add_oder(shared_ptr<Movie>& movie)
     {
         pair<shared_ptr<Movie>, chrono::system_clock::time_point> order(movie.get(), chrono::system_clock::now());
         this->orders.push_back(order);
@@ -32,6 +32,23 @@ namespace film
         {
             sales.emplace_back(movie, 1);
         }
+    }
+
+    std::string Order::to_string()
+    {
+        stringstream buffer;
+        for (const auto &order : orders)
+        {
+            buffer << "Order: " << order.first->to_string() << " ";
+            std::time_t timeT = std::chrono::system_clock::to_time_t(order.second);
+            std::tm tm = *localtime(&timeT);
+            buffer << "Time: " << std::put_time(&tm, "%Y-%m-%d %H:%M:%S");
+        }
+    }
+
+    std::wstring to_string(const Order& order)
+    {
+        //return
     }
 
     bool operator==(const Order& lha, const Order& rha)

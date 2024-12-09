@@ -1,31 +1,33 @@
 #include "Storage.h"
+#include <iostream>
+#include <algorithm>
 
 using namespace std;
 
 namespace film
 {
-    Storage::Storage(const string& name) : name(name)
+    Storage::Storage(const std::string& name) : name(name)
     {}
 
-    shared_ptr<Storage> Storage::create_storage(const string& name)
+    std::shared_ptr<Storage> Storage::create_storage(const std::string& name)
     {
         return make_shared<Storage>(Storage{ name });
     }
 
 
-    void Storage::add_movie(shared_ptr<Movie> movie)
+    void Storage::add_movie(std::shared_ptr<Movie> movie)
     {
         this->movies.push_back(movie.get());
         movie.get()-> storage = shared_from_this();
     }
 
-    void Storage::remove_movie(shared_ptr<Movie> movie)
+    void Storage::remove_movie(std::shared_ptr<Movie> movie)
     {
         this->movies.erase(std::remove(this->movies.begin(), this->movies.end(), movie.get()), this->movies.end());
         movie.get()-> storage = nullptr;
     }
 
-    string Storage::search_by_title(const string& title)
+    std::string Storage::search_by_title(const std::string& title)
     {
         auto it = find_if(movies.begin(), movies.end(), [=](const Movie* movie) {return movie->get_title() == title;});
 
@@ -36,9 +38,9 @@ namespace film
         return "There are no movies with this title.";
     }
 
-    vector<Movie> Storage::search_by_genre(const string& genre)
+    std::vector<Movie> Storage::search_by_genre(const std::string& genre)
     {
-        vector<Movie> result;
+        std::vector<Movie> result;
         transform(movies.begin(), movies.end(), back_inserter(result), [=](const Movie* movie)
         {
             auto genres = movie->get_genres();
@@ -50,9 +52,9 @@ namespace film
         return result;
     }
 
-    vector<Movie> Storage::search_by_director(const string& director)
+    std::vector<Movie> Storage::search_by_director(const std::string& director)
     {
-        vector<Movie> result;
+        std::vector<Movie> result;
         transform(movies.begin(), movies.end(), back_inserter(result), [=](const Movie* movie)
             {
                 auto directors = movie->get_directors();
@@ -64,9 +66,9 @@ namespace film
         return result;
     }
 
-    vector<Movie> Storage::search_by_actor(const string& actor)
+    std::vector<Movie> Storage::search_by_actor(const std::string& actor)
     {
-        vector<Movie> result;
+        std::vector<Movie> result;
         transform(movies.begin(), movies.end(), back_inserter(result), [=](const Movie* movie)
         {
             auto actors = movie->get_actors();
@@ -78,7 +80,7 @@ namespace film
         return result;
     }
 
-    Movie Storage::get_top_sale_movie(vector<pair<shared_ptr<Movie>, int>> sales)
+    Movie Storage::get_top_sale_movie(std::vector<pair<std::shared_ptr<Movie>, int>> sales)
     {
         if (sales.empty())
         {
@@ -86,7 +88,7 @@ namespace film
         }
 
         int max_sales = 0;
-        shared_ptr<Movie> top_movie = nullptr;
+        std::shared_ptr<Movie> top_movie = nullptr;
 
         for (const auto& sale : sales)
         {
@@ -105,7 +107,7 @@ namespace film
         return false;
     }
 
-    bool operator==(const shared_ptr<Storage>& lha, const shared_ptr<Storage>& rha)
+    bool operator==(const std::shared_ptr<Storage>& lha, const std::shared_ptr<Storage>& rha)
     {
         return false;
     }

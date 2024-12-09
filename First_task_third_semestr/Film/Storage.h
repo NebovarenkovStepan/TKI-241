@@ -1,9 +1,8 @@
 #pragma once
-#include <iostream>
+
 #include <string>
 #include <vector>
 #include <memory>
-#include <variant>
 #include "Film.h"
 
 using namespace std;
@@ -15,7 +14,7 @@ namespace film
     class Order;
 
     bool operator==(const Storage& lha, const Storage& rha);
-    bool operator==(const shared_ptr<Storage>& lha, const shared_ptr<Storage>& rha);
+    bool operator==(const std::shared_ptr<Storage>& lha, const std::shared_ptr<Storage>& rha);
 
     class Storage final : public enable_shared_from_this<Storage>
     {
@@ -23,26 +22,26 @@ namespace film
     private:
 
         vector<Movie*> movies;
-        string name;
+        std::string name;
 
     public:
 
-        Storage(const string& name);
+        Storage(const std::string& name);
 
-        static shared_ptr<Storage> create_storage(const string& name);
+        static std::shared_ptr<Storage> create_storage(const std::string& name);
 
-        void add_movie(shared_ptr<Movie> movie);
+        void add_movie(std::shared_ptr<Movie> movie);
 
-        void remove_movie(shared_ptr<Movie> movie);
+        void remove_movie(std::shared_ptr<Movie> movie);
 
-        string search_by_title(const string& title); 
+        std::string search_by_title(const std::string& title); 
 
-        vector<Movie> search_by_genre(const string& genre); 
+        vector<Movie> search_by_genre(const std::string& genre); 
 
-        vector<Movie> search_by_director(const string& director);
+        vector<Movie> search_by_director(const std::string& director);
 
-        vector<Movie> search_by_actor(const string& actor);
+        vector<Movie> search_by_actor(const std::string& actor);
 
-        Movie get_top_sale_movie(vector<pair<shared_ptr<Movie>, int>> sales);
+        Movie get_top_sale_movie(vector<pair<std::shared_ptr<Movie>, int>> sales);
     };
 }

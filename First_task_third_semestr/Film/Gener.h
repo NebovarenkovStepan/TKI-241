@@ -1,19 +1,18 @@
 #pragma once
 #include <iostream>
-#include <sstream>
-#include <ostream>
+#include <memory>
 #include <vector>
 #include <string>
 #include "Film.h"
 
-using namespace std;
-
 namespace film
 {
-	class Movie;
 	class Genre;
 	bool operator==(const Genre& lha, const Genre& rha);
-	bool operator==(const shared_ptr<Genre>& lha, const shared_ptr<Genre>& rha);
+	bool operator==(const std::shared_ptr<Genre>& lha, const std::shared_ptr<Genre>& rha);
+
+	class Movie;
+
 
 	class Genre final : public std::enable_shared_from_this<Genre>
 	{
@@ -21,14 +20,14 @@ namespace film
 		
 		vector<Movie*> movies;
 		shared_ptr<Movie> movie;
-		string genre;
-		
+		std::string genre;
+		explicit Genre(const std::string& genre);
 
 	public:
-		Genre(string genre);
-		static shared_ptr<Genre> create_genre(string genre);
-		Genre(const string& genre, shared_ptr<Movie> movie);
-		void add_movie(shared_ptr<Movie> movie);
-		string get_genre() const;
+		
+		static std::shared_ptr<Genre> create_genre(string genre);
+		Genre(const string& genre, std::shared_ptr<Movie> movie);
+		void add_movie(std::shared_ptr<Movie>& movie);
+		std::string to_string() const;
 	};
 }

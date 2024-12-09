@@ -3,13 +3,13 @@
 #include <string>
 #include <optional>
 
+#include"Film.h"
+
 namespace film 
-
 {
-
-    Person::Person(const string& name, const string& surname, const std::optional<string>& patronymic) : name(name), surname(surname), patronymic(patronymic) 
+    Person::Person(const std::string& name, const std::string& surname, const std::optional<std::string>& patronymic) : name{ name }, surname{ surname }, patronymic{ patronymic }
     {
-        stringstream buffer{};
+        std::stringstream buffer{};
         if (this->patronymic.has_value()) 
         {
             buffer << this->name << " " << this->surname << " " << this->patronymic.value();
@@ -20,13 +20,13 @@ namespace film
         this->full_name = buffer.str();
     }
 
-    void Person::add_film_directors(shared_ptr<Movie>& movie)
+    void Person::add_film_directors(std::shared_ptr<Movie> const& movie)
     {
         this->movies.push_back(movie);
         movie->get_directors().push_back(shared_from_this());
     }
 
-    void Person::add_film_actors(shared_ptr<Movie>& movie)
+    void Person::add_film_actors(std::shared_ptr<Movie> const& movie)
     {
         this->movies.push_back(movie);
         movie->get_actors().push_back(shared_from_this());
@@ -34,27 +34,27 @@ namespace film
 
     string Person::to_string() const
     {
-        stringstream buffer{};
+        std::stringstream buffer{};
         buffer << this->full_name;
         return buffer.str();
     }
 
-    string Person::get_name() const 
+    std::string Person::get_name() const 
     {
         return this->name;
     }
 
-    string Person::get_surname() const 
+    std::string Person::get_surname() const 
     {
         return this->surname;
     }
 
-    string Person::get_patronymic() const 
+    std::string Person::get_patronymic() const 
     {
         return this->patronymic.has_value() ? this->patronymic.value() : "Empty";
     }
 
-    shared_ptr<Person> Person::create_person(const string& name, const string& surname, const optional<string>& patronymic) 
+    std::shared_ptr<Person> Person::create_person(const std::string& name, const std::string& surname, const std::optional<std::string>& patronymic) 
     {
         return make_shared<Person>(name, surname, patronymic);
     }
@@ -63,7 +63,7 @@ namespace film
         return lha.to_string() == rha.to_string();
     }
 
-    bool operator==(const shared_ptr<Person>& lha, const shared_ptr<Person>& rha)
+    bool operator==(const std::shared_ptr<Person>& lha, const std::shared_ptr<Person>& rha)
     {
         return lha.get()->to_string() == rha.get()->to_string();
     }

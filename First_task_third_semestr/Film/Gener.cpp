@@ -1,27 +1,31 @@
 #include "Gener.h"
+#include "Film.h"
+
+#include <sstream>
+
 
 namespace film
 {
-    void Genre::add_movie(shared_ptr<Movie> movie) 
+    void Genre::add_movie(std::shared_ptr<Movie>& movie)
     {
         this->movies.push_back(movie.get());
         movie->get_genres().push_back(shared_from_this());
     }
 
-    Genre::Genre(string genre) : genre(genre){}
+    Genre::Genre(const std::string& genre) : genre(genre){}
 
-    shared_ptr<Genre> Genre::create_genre(string genre)
+    std::shared_ptr<Genre> Genre::create_genre(std::string genre)
     {
         return make_shared<Genre>(Genre{ genre });
     }
 
-    Genre::Genre(const string& geners, shared_ptr<Movie> movie) : genre(genre), movie(movie)
+    Genre::Genre(const std::string& geners, std::shared_ptr<Movie> movie) : genre(genre), movie(movie)
     {
     }
 
-    string Genre::get_genre() const
+    std::string Genre::to_string() const
     {
-        stringstream buffer;
+        std::stringstream buffer;
         buffer << "Genre: \n";
         buffer << genre;
         buffer << ".\n";
@@ -30,11 +34,11 @@ namespace film
 
     bool operator==(const Genre& lha, const Genre& rha)
     {
-        return lha.get_genre() == rha.get_genre();
+        return lha.to_string() == rha.to_string();
     }
 
-    bool operator==(const shared_ptr<Genre>& lha, const shared_ptr<Genre>& rha)
+    bool operator==(const std::shared_ptr<Genre>& lha, const std::shared_ptr<Genre>& rha)
     {
-        return lha.get()->get_genre() == rha.get()->get_genre();
+        return lha.get()->to_string() == rha.get()->to_string();
     }
 }

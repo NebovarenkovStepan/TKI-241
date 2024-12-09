@@ -1,34 +1,35 @@
 #pragma once
-#include <iostream>
 #include <string>
-#include <ctime>
 #include <chrono>
 #include "Film.h"
 
-using namespace std;
-
 namespace film
 {
+    class Order;
+    std::wstring to_string(const Order& order);
+    bool operator==(const Order& lha, const Order& rha);
+    bool operator==(const std::shared_ptr<Order>& lha, const std::shared_ptr<Order>& rha);
+
     class Movie;
     class Storage;
-    bool operator==(const Order& lha, const Order& rha);
-    bool operator==(const shared_ptr<Order>& lha, const shared_ptr<Order>& rha);
 
-    class Order final : public enable_shared_from_this<Order>
+    class Order final : public std::enable_shared_from_this<Order>
     {
 
     private:
 
-        vector<pair<shared_ptr<Movie>, chrono::system_clock::time_point>> orders;
-        vector<pair<shared_ptr<Movie>, int>> sales;
-        string title;
+        std::vector<std::pair<std::shared_ptr<Movie>, std::chrono::system_clock::time_point>> orders;
+        std::vector<std::pair<std::shared_ptr<Movie>, int>> sales{};
+        std::string title;
+        explicit Order(const std::string& title);
 
     public:
 
-        Order(const string& title);
-        static shared_ptr<Order> create_order(const string& title);
-        void add_oder(shared_ptr<Movie> movie);
-        void add_sale(shared_ptr<Movie> movie);
+        
+        static std::shared_ptr<Order> create_order(const std::string& title);
+        void add_oder(std::shared_ptr<Movie>& movie);
+        void add_sale(std::shared_ptr<Movie> movie);
+        std::string to_string();
     };
 }
 
