@@ -8,13 +8,7 @@ namespace matrix
 
 	Exercise::~Exercise(){}
 
-	void Exercise::task1()
-	{
-		int max_element = this->matrix[0][0];
+	void Exercise::task1() {}
 
-	}
-
-	void Exercise::task2()
-	{
-	}
+	void Exercise::task2() {}
 }

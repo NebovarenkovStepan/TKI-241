@@ -13,8 +13,6 @@ namespace matrix
         other.columns = 0;
     }
 
-    Matrix::~Matrix(){}
-
     Matrix& Matrix::operator=(const Matrix& other)
     {
         if (this != &other)

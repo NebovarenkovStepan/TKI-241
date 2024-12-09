@@ -49,11 +49,6 @@ namespace matrix
         Matrix(Matrix&& other) noexcept;
 
         /**
-        * @brief Деструктор.
-        */
-        ~Matrix();
-
-        /**
         * @brief Оператор присваивания копированием.
         * @param other Матрица, данные которой нужно скопировать.
         * @return Ссылка на текущую матрицу.

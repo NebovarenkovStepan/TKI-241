@@ -37,11 +37,11 @@ namespace matrix
         /**
         * @brief чисто виртуальный метод для выполнения задачи Task1.
         */
-       void task1();
+       void virtual task1();
 
         /**
         * @brief яисто виртуальный метод для выполнения задачи Task2.
         */
-        void task2();
+        void virtual task2();
     };
 }
