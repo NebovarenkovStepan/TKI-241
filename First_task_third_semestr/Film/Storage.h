@@ -16,6 +16,9 @@ namespace film
     bool operator==(const Storage& lha, const Storage& rha);
     bool operator==(const std::shared_ptr<Storage>& lha, const std::shared_ptr<Storage>& rha);
 
+    class Person;
+    class Genre;
+
     class Storage final : public enable_shared_from_this<Storage>
     {
 

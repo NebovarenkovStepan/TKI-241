@@ -18,14 +18,13 @@ namespace film
 
     private:
 
-        std::vector<std::pair<std::shared_ptr<Movie>, std::chrono::system_clock::time_point>> orders;
+        std::pair<std::shared_ptr<Movie>, std::chrono::system_clock::time_point> order;
         std::vector<std::pair<std::shared_ptr<Movie>, int>> sales{};
         std::string title;
         explicit Order(const std::string& title);
 
     public:
 
-        
         static std::shared_ptr<Order> create_order(const std::string& title);
         void add_oder(std::shared_ptr<Movie>& movie);
         void add_sale(std::shared_ptr<Movie> movie);

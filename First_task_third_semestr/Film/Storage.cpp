@@ -1,6 +1,9 @@
-#include "Storage.h"
 #include <iostream>
 #include <algorithm>
+
+#include "Storage.h"
+
+#include "Gener.h"
 
 using namespace std;
 
@@ -44,7 +47,12 @@ namespace film
         transform(movies.begin(), movies.end(), back_inserter(result), [=](const Movie* movie)
         {
             auto genres = movie->get_genres();
-            if (find(genres.begin(), genres.end(), genre) != genres.end())
+            std::vector<string> string_genres;
+            for (const auto& genres_to_string : genres)
+            {
+                string_genres.push_back(genres_to_string.get()->to_string());
+            }
+            if (find(string_genres.begin(), string_genres.end(), genre) != string_genres.end())
             {
                 return *movie;
             }
@@ -58,7 +66,12 @@ namespace film
         transform(movies.begin(), movies.end(), back_inserter(result), [=](const Movie* movie)
             {
                 auto directors = movie->get_directors();
-                if (find(directors.begin(), directors.end(), director) != directors.end())
+                std::vector<string> string_directors;
+                for (const auto& director_to_string : directors)
+                {
+                    string_directors.push_back(director_to_string.get()->to_string());
+                }
+                if (find(string_directors.begin(), string_directors.end(), director) != string_directors.end())
                 {
                     return *movie;
                 }
@@ -72,7 +85,12 @@ namespace film
         transform(movies.begin(), movies.end(), back_inserter(result), [=](const Movie* movie)
         {
             auto actors = movie->get_actors();
-            if (find(actors.begin(), actors.end(), actor) != actors.end())
+            std::vector<string> string_actors;
+            for (const auto& actor_to_string : actors)
+            {
+                string_actors.push_back(actor_to_string.get()->to_string());
+            }
+            if (find(string_actors.begin(), string_actors.end(), actor) != string_actors.end())
             {
                 return *movie;
             }
