@@ -1,140 +1,103 @@
 #include "pch.h"
 #include "CppUnitTest.h"
-#include "../Film/Storage.h"
 #include "../Film/Film.h"
+#include "../Film/Gener.h"
+#include "../Film/people.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace FilmTests
 {
-    TEST_CLASS(StorageTests)
+    TEST_CLASS(MovieTests)
     {
     public:
-        TEST_METHOD(AddMovie_Success)
+        TEST_METHOD(CreateMovie_Success)
         {
             // Arrange
-            auto storage = film::Storage::create_storage("My Movie Storage");
-            auto movie = std::make_shared<film::Movie>("Inception", "Sci-Fi", "Christopher Nolan");
+            std::vector<std::shared_ptr<film::Genre>> genres = { std::make_shared<film::Genre>("Sci-Fi") };
+            std::vector<std::shared_ptr<film::Person>> directors = { std::make_shared<film::Person>("Christopher Nolan") };
+            std::vector<std::shared_ptr<film::Person>> actors = { std::make_shared<film::Person>("Leonardo DiCaprio") };
 
             // Act
-            storage->add_movie(movie);
+            auto movie = film::Movie::create_movie("Inception", 14.99, genres, directors, actors);
 
             // Assert
-            Assert::AreEqual("Inception", storage->search_by_title("Inception").c_str());
+            Assert::AreEqual("Inception", movie->get_title().c_str());
+            Assert::AreEqual(14.99, movie->get_price());
         }
 
-        TEST_METHOD(RemoveMovie_Success)
+        TEST_METHOD(ToString_Success)
         {
             // Arrange
-            auto storage = film::Storage::create_storage("My Movie Storage");
-            auto movie = std::make_shared<film::Movie>("Inception", "Sci-Fi", "Christopher Nolan");
-            storage->add_movie(movie);
+            std::vector<std::shared_ptr<film::Genre>> genres = { std::make_shared<film::Genre>("Sci-Fi") };
+            std::vector<std::shared_ptr<film::Person>> directors = { std::make_shared<film::Person>("Christopher Nolan") };
+            std::vector<std::shared_ptr<film::Person>> actors = { std::make_shared<film::Person>("Leonardo DiCaprio") };
+            auto movie = film::Movie::create_movie("Inception", 14.99, genres, directors, actors);
 
             // Act
-            storage->remove_movie(movie);
+            std::string result = movie->to_string();
 
             // Assert
-            Assert::AreEqual("There are no movies with this title.", storage->search_by_title("Inception").c_str());
+            Assert::IsTrue(result.find("Title: Inception") != std::string::npos);
+            Assert::IsTrue(result.find("Directors: Christopher Nolan") != std::string::npos);
+            Assert::IsTrue(result.find("Genres: Sci-Fi") != std::string::npos);
+            Assert::IsTrue(result.find("Actors: Leonardo DiCaprio") != std::string::npos);
         }
 
-        TEST_METHOD(SearchByTitle_Found)
+        TEST_METHOD(GetGenres_Success)
         {
             // Arrange
-            auto storage = film::Storage::create_storage("My Movie Storage");
-            auto movie = std::make_shared<film::Movie>("Inception", "Sci-Fi", "Christopher Nolan");
-            storage->add_movie(movie);
+            std::vector<std::shared_ptr<film::Genre>> genres = { std::make_shared<film::Genre>("Sci-Fi"), std::make_shared<film::Genre>("Action") };
+            auto movie = film::Movie::create_movie("Inception", 14.99, genres, {}, {});
 
             // Act
-            std::string result = storage->search_by_title("Inception");
+            auto retrieved_genres = movie->get_genres();
+            size_t expected_size = 2;
 
             // Assert
-            Assert::AreEqual("Inception", result.c_str());
+            Assert::AreEqual(expected_size, retrieved_genres.size());
+            Assert::AreEqual("Sci-Fi", retrieved_genres[0]->to_string().c_str());
+            Assert::AreEqual("Action", retrieved_genres[1]->to_string().c_str());
         }
 
-        TEST_METHOD(SearchByTitle_NotFound)
+        TEST_METHOD(GetDirectors_Success)
         {
             // Arrange
-            auto storage = film::Storage::create_storage("My Movie Storage");
+            std::vector<std::shared_ptr<film::Person>> directors = { std::make_shared<film::Person>("Christopher Nolan") };
+            auto movie = film::Movie::create_movie("Inception", 14.99, {}, directors, {});
 
             // Act
-            std::string result = storage->search_by_title("Nonexistent Movie");
-
+            auto retrieved_directors = movie->get_directors();
+            size_t expected_size = 1;
             // Assert
-            Assert::AreEqual("There are no movies with this title.", result.c_str());
+            Assert::AreEqual(expected_size, retrieved_directors.size());
+            Assert::AreEqual("Christopher Nolan", retrieved_directors[0]->to_string().c_str());
         }
 
-        TEST_METHOD(SearchByGenre_Found)
+        TEST_METHOD(GetActors_Success)
         {
             // Arrange
-            auto storage = film::Storage::create_storage("My Movie Storage");
-            auto movie = std::make_shared<film::Movie>("Inception", "Sci-Fi", "Christopher Nolan");
-            storage->add_movie(movie);
+            std::vector<std::shared_ptr<film::Person>> actors = { std::make_shared<film::Person>("Leonardo DiCaprio") };
+            auto movie = film::Movie::create_movie("Inception", 14.99, {}, {}, actors);
 
             // Act
-            auto results = storage->search_by_genre("Sci-Fi");
-
+            auto retrieved_actors = movie->get_actors();
+            size_t expected_size = 1;
             // Assert
-            Assert::IsTrue(results.size() > 0);
-            Assert::AreEqual("Inception", results[0].get_title().c_str());
+            Assert::AreEqual(expected_size, retrieved_actors.size());
+            Assert::AreEqual("Leonardo DiCaprio", retrieved_actors[0]->to_string().c_str());
         }
 
-        TEST_METHOD(SearchByDirector_Found)
+        TEST_METHOD(EqualityOperator_Success)
         {
             // Arrange
-            auto storage = film::Storage::create_storage("My Movie Storage");
-            auto movie = std::make_shared<film::Movie>("Inception", "Sci-Fi", "Christopher Nolan");
-            storage->add_movie(movie);
-
-            // Act
-            auto results = storage->search_by_director("Christopher Nolan");
-
-            // Assert
-            Assert::IsTrue(results.size() > 0);
-            Assert::AreEqual("Inception", results[0].get_title().c_str());
-        }
-
-        TEST_METHOD(SearchByActor_Found)
-        {
-            // Arrange
-            auto storage = film::Storage::create_storage("My Movie Storage");
-            auto movie = std::make_shared<film::Movie>("Inception", "Sci-Fi", "Leonardo DiCaprio");
-            storage->add_movie(movie);
-
-            // Act
-            auto results = storage->search_by_actor("Leonardo DiCaprio");
-
-            // Assert
-            Assert::IsTrue(results.size() > 0);
-            Assert::AreEqual("Inception", results[0].get_title().c_str());
-        }
-
-        TEST_METHOD(GetTopSaleMovie_NoSales_ThrowsException)
-        {
-            // Arrange
-            auto storage = film::Storage::create_storage("My Movie Storage");
+            std::vector<std::shared_ptr<film::Genre>> genres = { std::make_shared<film::Genre>("Sci-Fi") };
+            std::vector<std::shared_ptr<film::Person>> directors = { std::make_shared<film::Person>("Christopher Nolan") };
+            auto movie1 = film::Movie::create_movie("Inception", 14.99, genres, directors, {});
+            auto movie2 = film::Movie::create_movie("Inception", 14.99, genres, directors, {});
 
             // Act & Assert
-            Assert::ExpectException<std::out_of_range>([&]() {
-                storage->get_top_sale_movie({});
-                });
-        }
-
-        TEST_METHOD(GetTopSaleMovie_Success)
-        {
-            // Arrange
-            auto storage = film::Storage::create_storage("My Movie Storage");
-            auto movie1 = std::make_shared<film::Movie>("Inception", "Sci-Fi", "Christopher Nolan");
-            auto movie2 = std::make_shared<film::Movie>("The Dark Knight", "Action", "Christopher Nolan");
-            std::vector<std::pair<std::shared_ptr<film::Movie>, int>> sales = {
-                {movie1, 100},
-                {movie2, 200}
-            };
-
-            // Act
-            auto top_movie = storage->get_top_sale_movie(sales);
-
-            // Assert
-            Assert::AreEqual("The Dark Knight", top_movie.get_title().c_str());
+            Assert::IsTrue(*movie1 == *movie2);
         }
     };
 }
