@@ -3,13 +3,11 @@
 #include <sstream>
 #include <iostream>
 
-using namespace std;
-
 namespace Movie
 {
-		Movie::Movie(const std::string& title, const double price, std::vector<shared_ptr<Genre>> genres, std::vector<shared_ptr<Person>> directors, std::vector<std::shared_ptr<Person>> actors) : title(title), price(price), genres(genres), directors(directors), actors(actors){}
+		Movie::Movie(const std::string& title, const double price, std::vector<std::shared_ptr<Genre>> genres, std::vector<std::shared_ptr<Person>> directors, std::vector<std::shared_ptr<Person>> actors) : title(title), price(price), genres(genres), directors(directors), actors(actors), sales(0){}
 
-		shared_ptr<Movie> Movie::create_movie(const std::string& title, const double price, std::vector<shared_ptr<Genre>> genres, std::vector<shared_ptr<Person>> directors, std::vector<shared_ptr<Person>> actors)
+		std::shared_ptr<Movie> Movie::create_movie(const std::string& title, const double price, std::vector<std::shared_ptr<Genre>> genres, std::vector<std::shared_ptr<Person>> directors, std::vector<std::shared_ptr<Person>> actors)
 		{
 			return make_shared<Movie>(Movie{title, price, genres, directors,  actors});
 		}
@@ -40,7 +38,7 @@ namespace Movie
 			buffer << "Genres: ";
 			for (size_t i = 0; i < genres.size(); ++i)
 			{
-				buffer << genres[i];
+				buffer << genres[i]->to_string();
 				if (i < genres.size() - 1)
 				{
 					buffer << ", ";
@@ -62,23 +60,35 @@ namespace Movie
 			return buffer.str();
 		}
 
-		std::vector<shared_ptr<Genre>> Movie::get_genres() const
+		Movie::Movie() : title("Empty"){}
+
+		std::vector<std::shared_ptr<Genre>> Movie::get_genres() const
 		{
 			return this->genres;
 		}
 
-		std::vector<shared_ptr<Person>> Movie::get_directors() const
+		std::vector<std::shared_ptr<Person>> Movie::get_directors() const
 		{
 			return this->directors;
 		}
 
-		std::vector<shared_ptr<Person>> Movie::get_actors() const
+		std::vector<std::shared_ptr<Person>> Movie::get_actors() const
 		{
 			return this->actors;
 		}
 		double Movie::get_price() const
 		{
 			return this->price;
+		}
+
+		void Movie::increase_sales()
+		{
+			this->sales += 1;
+		}
+
+		int Movie::get_sales()
+		{
+			return this->sales;
 		}
 
 		std::wstring ToString(const Movie& movie)
@@ -92,7 +102,7 @@ namespace Movie
 			return lha.to_string() == rha.to_string();
 		}
 
-		bool operator==(const shared_ptr<Movie>& lha, const shared_ptr<Movie>& rha)
+		bool operator==(const std::shared_ptr<Movie>& lha, const std::shared_ptr<Movie>& rha)
 		{
 			return lha.get()->to_string() == rha.get()->to_string();
 		}

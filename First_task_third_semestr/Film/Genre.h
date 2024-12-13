@@ -18,15 +18,16 @@ namespace Movie
 	{
 	private:
 		
-		vector<Movie*> movies;
-		shared_ptr<Movie> movie;
+		std::vector<Movie*> movies;
+		std::shared_ptr<Movie> movie;
 		std::string genre;
-		explicit Genre(const std::string& genre);
-
+		
+		Genre(const std::string& genre, std::shared_ptr<Movie> movie);
+		
 	public:
 		
-		static std::shared_ptr<Genre> create_genre(string genre);
-		Genre(const string& genre, std::shared_ptr<Movie> movie);
+		static std::shared_ptr<Genre> create_genre(std::string genre);
+		explicit Genre(const std::string& genre);
 		void add_movie(std::shared_ptr<Movie>& movie);
 		std::string to_string() const;
 	};

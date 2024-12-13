@@ -12,7 +12,8 @@ namespace Movie
         movie->get_genres().push_back(shared_from_this());
     }
 
-    Genre::Genre(const std::string& genre) : genre(genre){}
+    Genre::Genre(const std::string& genre) : genre( genre )
+    {}
 
     std::shared_ptr<Genre> Genre::create_genre(std::string genre)
     {
@@ -26,9 +27,7 @@ namespace Movie
     std::string Genre::to_string() const
     {
         std::stringstream buffer;
-        buffer << "Genre: \n";
         buffer << genre;
-        buffer << ".\n";
         return buffer.str();
     }
 

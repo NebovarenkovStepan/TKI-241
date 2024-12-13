@@ -4,11 +4,11 @@
 #include <vector>
 #include "Person.h"
 
-using namespace std;
+#include "Storage.h"
+#include "Genre.h"
 
 namespace Movie
 {
-
     class Movie;
 
     std::wstring ToString(const Movie& movie);
@@ -25,6 +25,7 @@ namespace Movie
     private:
         std::string title;
         double price;
+        int sales;
         std::vector<std::shared_ptr<Genre>> genres{};
         std::vector<std::shared_ptr<Person>> directors{};
         std::vector<std::shared_ptr<Person>> actors{};
@@ -37,10 +38,13 @@ namespace Movie
         std::shared_ptr<Storage> storage;
         std::shared_ptr<Order> order;
         std::string to_string() const;
+        Movie();
         std::vector<std::shared_ptr<Genre>> get_genres() const;
         std::vector<std::shared_ptr<Person>> get_directors() const;
         std::vector<std::shared_ptr<Person>> get_actors() const;
         double get_price() const;
+        void increase_sales();
+        int get_sales();
     };
 
 }

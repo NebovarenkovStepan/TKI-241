@@ -2,20 +2,21 @@
 
 namespace Movie
 {
-    Order::Order(const string& title) : title{ title }, price_of_movie{0}
+    Order::Order(const std::string& title) : title{ title }, price_of_movie{0}
     {
         
     }
 
-    shared_ptr<Order> Order::create_order(const string& title)
+    std::shared_ptr<Order> Order::create_order(const std::string& title)
     {
         return make_shared<Order>(Order{ title });
     }
 
-    void Order::add_oder(shared_ptr<Movie>& movie)
+    void Order::add_oder(std::shared_ptr<Movie>& movie)
     {
-        pair<shared_ptr<Movie>, chrono::system_clock::time_point> order(movie.get(), chrono::system_clock::now());
+        std::pair<std::shared_ptr<Movie>, std::chrono::system_clock::time_point> order(movie.get(), std::chrono::system_clock::now());
         movie.get()->order = shared_from_this();
+        movie.get()->increase_sales();
     }
 
     void Order::add_price(std::shared_ptr<Movie>& movie) 
@@ -43,7 +44,7 @@ namespace Movie
     std::wstring ToString(Order& order)
     {
         auto temp = order.to_string();
-        return wstring{ temp.cbegin(), temp.cend() };
+        return std::wstring{ temp.cbegin(), temp.cend() };
     }
 
     bool operator==(const Order& lha, const Order& rha)
@@ -51,7 +52,7 @@ namespace Movie
         return false;
     }
 
-    bool operator==(const shared_ptr<Order>& lha, const shared_ptr<Order>& rha)
+    bool operator==(const std::shared_ptr<Order>& lha, const std::shared_ptr<Order>& rha)
     {
         return false;
     }
