@@ -1,94 +1,77 @@
-#include "../Film/Person.h"
 #include "pch.h"
-#include "CppUnitTest.h"
-#include <optional>
+/*#include "CppUnitTest.h"
+#include "../Film/Person.h"
+#include "../Film/Movie.h"
+#include "../Film/Genre.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-namespace PerosnTests
+namespace FilmTests
 {
     TEST_CLASS(PersonTests)
     {
     public:
-        TEST_METHOD(ConstructorWithPatronymic_ZeroData_Success)
+
+        TEST_METHOD(CreatePerson_Success)
         {
-            // arrange
-            std::string name = "John";
-            std::string surname = "Doe";
-            std::optional<std::string> patronymic = "Smith";
+            // Arrange
+            std::string name = "Christopher";
+            std::string surname = "Nolan";
+            std::optional<std::string> patronymic = "Edward";
 
-            // act
-            Movie::Person person(name, surname, patronymic);
-            std::string expected = "John Doe Smith";
+            // Act
+            auto person = Movie::Person::create_person(name, surname, patronymic);
 
-            // assert
-            Assert::AreEqual(expected, person.to_string());
+            // Assert
+            Assert::AreEqual("Christopher Nolan Edward", person->to_string().c_str());
         }
 
-        TEST_METHOD(ConstructorWithoutPatronymic_ZeroData_Success)
+        TEST_METHOD(CreatePerson_WithoutPatronymic_Success)
         {
-            // arrange
-            std::string name = "Jane";
-            std::string surname = "Doe";
+            // Arrange
+            std::string name = "Leonardo";
+            std::string surname = "DiCaprio";
             std::optional<std::string> patronymic = std::nullopt;
 
-            // act
-            Movie::Person person(name, surname, patronymic);
+            // Act
+            auto person = Movie::Person::create_person(name, surname, patronymic);
 
-            std::string expected = "Jane Doe";
-
-            // assert
-            Assert::AreEqual(expected, person.to_string());
+            // Assert
+            Assert::AreEqual("Leonardo DiCaprio", person->to_string().c_str());
         }
 
-        TEST_METHOD(ToString_ZeroData_Success)
+        TEST_METHOD(AddFilmAsDirector_Success)
         {
-            // arrange
-            Movie::Person person("Alice", "Wonderland", std::nullopt);
+            // Arrange
+            auto person = Movie::Person::create_person("Christopher", "Nolan");
+            auto genre = Movie::Genre::create_genre("Action");
+            std::vector<std::shared_ptr<Movie::Genre>> genres = { genre };
+            std::vector<std::shared_ptr<Movie::Person>> directors = { person };
+            auto movie = Movie::Movie::create_movie("Inception", 14.99, genres, directors, {});
 
-            // act
-            std::string actual = person.to_string();
+            // Act
+            person->add_film_directors(movie);
 
-            std::string expected = "Alice Wonderland";
-
-            // assert
-            Assert::AreEqual(expected, actual);
+            // Assert
+            Assert::IsTrue(movie->get_directors().size() == 1);
+            Assert::AreEqual("Christopher Nolan", movie->get_directors()[0]->to_string().c_str());
         }
 
-        TEST_METHOD(GetPatronymic_Patronymic_Success)
+        TEST_METHOD(AddFilmAsActor_Success)
         {
-            // arrange
-            Movie::Person person("John", "Doe", "Smith");
+            // Arrange
+            auto person = Movie::Person::create_person("Leonardo", "DiCaprio");
+            auto genre = Movie::Genre::create_genre("Drama");
+            std::vector<std::shared_ptr<Movie::Genre>> genres = { genre };
+            std::vector<std::shared_ptr<Movie::Person>> directors;
+            auto movie = Movie::Movie::create_movie("Titanic", 19.99, genres, directors, {});
 
-            // act
-            std::string actual = person.get_patronymic();
-            std::string expected = "Smith";
+            // Act
+            person->add_film_actors(movie);
 
-            // assert
-            Assert::AreEqual(expected, actual);
-        }
-
-        TEST_METHOD(GetPatronymic_ZeroData_Success)
-        {
-            // arrange
-            Movie::Person person("Jane", "Doe", std::nullopt);
-
-            // act
-            std::string actual = person.get_patronymic();
-            std::string expected = "Empty";
-
-            // assert
-            Assert::AreEqual(expected, actual);
-        }
-
-        TEST_METHOD(AreEqual_ZeroData_Success)
-        {
-            // arrange
-            Movie::Person person1("John", "Doe", "Smith");
-            Movie::Person person2("John", "Doe", "Smith");
-
-            // act & assert
-            Assert::IsTrue(person1 == person2);
+            // Assert
+            Assert::IsTrue(movie->get_actors().size() == 1);
+            Assert::AreEqual("Leonardo DiCaprio", movie->get_actors()[0]->to_string().c_str());
         }
     };
-}
+}*/

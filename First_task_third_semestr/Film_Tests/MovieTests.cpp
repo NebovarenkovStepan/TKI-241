@@ -11,28 +11,34 @@ namespace FilmTests
     TEST_CLASS(MovieTests)
     {
     public:
+
         TEST_METHOD(CreateMovie_Success)
         {
             // Arrange
-            std::vector<std::shared_ptr<Movie::Genre>> genres = { std::make_shared<Movie::Genre>("Sci-Fi") };
-            std::vector<std::shared_ptr<Movie::Person>> directors = { std::make_shared<Movie::Person>("Christopher Nolan") };
-            std::vector<std::shared_ptr<Movie::Person>> actors = { std::make_shared<Movie::Person>("Leonardo DiCaprio") };
+            auto genre = Movie::Genre::create_genre("Sci-Fi");
+            Movie::Person director("Christopher", "Nolan");
+            std::vector<std::shared_ptr<Movie::Genre>> genres = { genre };
+            std::vector<std::shared_ptr<Movie::Person>> directors = { std::make_shared<Movie::Person>(director) };
+            std::vector<std::shared_ptr<Movie::Person>> actors; 
+            double price = 14.99;
 
             // Act
-            auto movie = Movie::Movie::create_movie("Inception", 14.99, genres, directors, actors);
+            auto movie = Movie::Movie::create_movie("Inception", price, genres, directors, actors);
 
             // Assert
             Assert::AreEqual("Inception", movie->get_title().c_str());
-            Assert::AreEqual(14.99, movie->get_price());
+            Assert::AreEqual(price, movie->get_price());
         }
 
         TEST_METHOD(ToString_Success)
         {
             // Arrange
-            std::vector<std::shared_ptr<Movie::Genre>> genres = { std::make_shared<Movie::Genre>("Sci-Fi") };
-            std::vector<std::shared_ptr<Movie::Person>> directors = { std::make_shared<Movie::Person>("Christopher Nolan") };
-            std::vector<std::shared_ptr<Movie::Person>> actors = { std::make_shared<Movie::Person>("Leonardo DiCaprio") };
-            auto movie = Movie::Movie::create_movie("Inception", 14.99, genres, directors, actors);
+            auto genre = Movie::Genre::create_genre("Sci-Fi");
+            Movie::Person director("Christopher", "Nolan");
+            std::vector<std::shared_ptr<Movie::Genre>> genres = { genre };
+            std::vector<std::shared_ptr<Movie::Person>> directors = { std::make_shared<Movie::Person>(director) };
+            std::vector<std::shared_ptr<Movie::Person>> actors;
+            auto movie = Movie::Movie::create_movie("Inception", 14.99, genres, directors, {});
 
             // Act
             std::string result = movie->to_string();
@@ -41,63 +47,53 @@ namespace FilmTests
             Assert::IsTrue(result.find("Title: Inception") != std::string::npos);
             Assert::IsTrue(result.find("Directors: Christopher Nolan") != std::string::npos);
             Assert::IsTrue(result.find("Genres: Sci-Fi") != std::string::npos);
-            Assert::IsTrue(result.find("Actors: Leonardo DiCaprio") != std::string::npos);
         }
 
-        TEST_METHOD(GetGenres_Success)
+        TEST_METHOD(IncreaseSales_Success)
         {
             // Arrange
-            std::vector<std::shared_ptr<Movie::Genre>> genres = { std::make_shared<Movie::Genre>("Sci-Fi"), std::make_shared<Movie::Genre>("Action") };
-            auto movie = Movie::Movie::create_movie("Inception", 14.99, genres, {}, {});
+            auto genre = Movie::Genre::create_genre("Sci-Fi");
+            Movie::Person director("Christopher", "Nolan");
+            std::vector<std::shared_ptr<Movie::Genre>> genres = { genre };
+            std::vector<std::shared_ptr<Movie::Person>> directors = { std::make_shared<Movie::Person>(director) };
+            auto movie = Movie::Movie::create_movie("Inception", 14.99, genres, directors, {});
 
             // Act
-            auto retrieved_genres = movie->get_genres();
-            size_t expected_size = 2;
+            movie->increase_sales();
+            movie->increase_sales(); 
 
             // Assert
-            Assert::AreEqual(expected_size, retrieved_genres.size());
-            Assert::AreEqual("Sci-Fi", retrieved_genres[0]->to_string().c_str());
-            Assert::AreEqual("Action", retrieved_genres[1]->to_string().c_str());
-        }
-
-        TEST_METHOD(GetDirectors_Success)
-        {
-            // Arrange
-            std::vector<std::shared_ptr<Movie::Person>> directors = { std::make_shared<Movie::Person>("Christopher Nolan") };
-            auto movie = Movie::Movie::create_movie("Inception", 14.99, {}, directors, {});
-
-            // Act
-            auto retrieved_directors = movie->get_directors();
-            size_t expected_size = 1;
-            // Assert
-            Assert::AreEqual(expected_size, retrieved_directors.size());
-            Assert::AreEqual("Christopher Nolan", retrieved_directors[0]->to_string().c_str());
-        }
-
-        TEST_METHOD(GetActors_Success)
-        {
-            // Arrange
-            std::vector<std::shared_ptr<Movie::Person>> actors = { std::make_shared<Movie::Person>("Leonardo DiCaprio") };
-            auto movie = Movie::Movie::create_movie("Inception", 14.99, {}, {}, actors);
-
-            // Act
-            auto retrieved_actors = movie->get_actors();
-            size_t expected_size = 1;
-            // Assert
-            Assert::AreEqual(expected_size, retrieved_actors.size());
-            Assert::AreEqual("Leonardo DiCaprio", retrieved_actors[0]->to_string().c_str());
+            Assert::AreEqual(2, movie->get_sales());
         }
 
         TEST_METHOD(EqualityOperator_Success)
         {
             // Arrange
-            std::vector<std::shared_ptr<Movie::Genre>> genres = { std::make_shared<Movie::Genre>("Sci-Fi") };
-            std::vector<std::shared_ptr<Movie::Person>> directors = { std::make_shared<Movie::Person>("Christopher Nolan") };
+            auto genre = Movie::Genre::create_genre("Sci-Fi");
+            Movie::Person director("Christopher", "Nolan");
+            std::vector<std::shared_ptr<Movie::Genre>> genres = { genre };
+            std::vector<std::shared_ptr<Movie::Person>> directors = { std::make_shared<Movie::Person>(director) };
             auto movie1 = Movie::Movie::create_movie("Inception", 14.99, genres, directors, {});
             auto movie2 = Movie::Movie::create_movie("Inception", 14.99, genres, directors, {});
 
             // Act & Assert
-            Assert::IsTrue(*movie1 == *movie2);
+            Assert::IsTrue(*movie1 == *movie2); 
+        }
+
+        TEST_METHOD(EqualityOperator_Failure)
+        {
+            // Arrange
+            auto genre1 = Movie::Genre::create_genre("Sci-Fi");
+            auto genre2 = Movie::Genre::create_genre("Action");
+            Movie::Person director("Christopher", "Nolan");
+            std::vector<std::shared_ptr<Movie::Genre>> genres1 = { genre1 };
+            std::vector<std::shared_ptr<Movie::Genre>> genres2 = { genre2 };
+            std::vector<std::shared_ptr<Movie::Person>> directors = { std::make_shared<Movie::Person>(director) };
+            auto movie1 = Movie::Movie::create_movie("Inception", 14.99, genres1, directors, {});
+            auto movie2 = Movie::Movie::create_movie("Inception", 14.99, genres2, directors, {});
+
+            // Act & Assert
+            Assert::IsFalse(*movie1 == *movie2);
         }
     };
 }

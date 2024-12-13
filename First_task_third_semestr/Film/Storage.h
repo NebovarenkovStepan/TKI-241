@@ -44,6 +44,6 @@ namespace Movie
 
         std::vector<Movie> search_by_actor(const std::string& actor);
 
-        Movie get_top_sale_movie(int sales);
+        Movie get_top_sale_movie();
     };
 }

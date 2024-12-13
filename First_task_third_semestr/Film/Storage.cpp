@@ -98,7 +98,7 @@ namespace Movie
         return result;
     }
 
-    Movie Storage::get_top_sale_movie(int sales)
+    Movie Storage::get_top_sale_movie()
     {
         int max_sales = 0;
         Movie* top_movie = nullptr;
