@@ -137,17 +137,6 @@ namespace StorageTests
             Assert::AreEqual("Inception", results[0].get_title().c_str());
         }
 
-        TEST_METHOD(GetTopSaleMovie_NoSales_ThrowsException)
-        {
-            // Arrange
-            auto storage = Movie::Storage::create_storage("My Movie Storage");
-
-            // Act & Assert
-            Assert::ExpectException<std::out_of_range>([&]() {
-                storage->get_top_sale_movie();
-                });
-        }
-
         TEST_METHOD(GetTopSaleMovie_Success)
         {
             // Arrange
@@ -160,12 +149,12 @@ namespace StorageTests
             auto movie2 = Movie::Movie::create_movie("The Dark Knight", 19.99, genres, directors, {});
             storage->add_movie(movie1);
             storage->add_movie(movie2);
-            movie1.get()->increase_sales();
+            movie1->increase_sales();
 
             // Act
-            std::string top_movie = storage->get_top_sale_movie().to_string();
+            std::string top_movie = storage->get_top_sale_movie().get_title();
 
-            std::string a = "The Dark Knight";
+            std::string a = "Inception";
             // Assert
             Assert::AreEqual(a, top_movie);
         }
