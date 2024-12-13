@@ -2,16 +2,16 @@
 #include <memory>
 #include <string>
 #include <vector>
-#include "people.h"
+#include "Person.h"
 
 using namespace std;
 
-namespace film 
+namespace Movie
 {
 
     class Movie;
 
-    std::wstring to_string(const Movie& movie);
+    std::wstring ToString(const Movie& movie);
     bool operator==(const Movie& lha, const Movie& rha);
     bool operator==(const std::shared_ptr<Movie>& lha, const std::shared_ptr<Movie>& rha);
 

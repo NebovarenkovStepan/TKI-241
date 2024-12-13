@@ -1,12 +1,12 @@
 #pragma once
 #include <string>
 #include <chrono>
-#include "Film.h"
+#include "Movie.h"
 
-namespace film
+namespace Movie
 {
     class Order;
-    std::wstring to_string(const Order& order);
+    std::wstring ToString(const Order& order);
     bool operator==(const Order& lha, const Order& rha);
     bool operator==(const std::shared_ptr<Order>& lha, const std::shared_ptr<Order>& rha);
 
@@ -19,7 +19,7 @@ namespace film
     private:
 
         std::pair<std::shared_ptr<Movie>, std::chrono::system_clock::time_point> order;
-        std::vector<std::pair<std::shared_ptr<Movie>, int>> sales{};
+        double price_of_movie;
         std::string title;
         explicit Order(const std::string& title);
 
@@ -27,7 +27,7 @@ namespace film
 
         static std::shared_ptr<Order> create_order(const std::string& title);
         void add_oder(std::shared_ptr<Movie>& movie);
-        void add_sale(std::shared_ptr<Movie> movie);
+        void add_price(std::shared_ptr<Movie>& movie);
         std::string to_string();
     };
 }

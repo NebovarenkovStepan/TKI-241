@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "CppUnitTest.h"
 #include "../Film/Storage.h"
-#include "../Film/Film.h"
+#include "../Film/Movie.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -13,8 +13,8 @@ namespace StorageTests
         TEST_METHOD(AddMovie_Success)
         {
             // Arrange
-            auto storage = film::Storage::create_storage("My Movie Storage");
-            auto movie = std::make_shared<film::Movie>("Inception", "Sci-Fi", "Christopher Nolan");
+            auto storage = Movie::Storage::create_storage("My Movie Storage");
+            auto movie = std::make_shared<Movie::Movie>("Inception", "Sci-Fi", "Christopher Nolan");
 
             // Act
             storage->add_movie(movie);
@@ -26,8 +26,8 @@ namespace StorageTests
         TEST_METHOD(RemoveMovie_Success)
         {
             // Arrange
-            auto storage = film::Storage::create_storage("My Movie Storage");
-            auto movie = std::make_shared<film::Movie>("Inception", "Sci-Fi", "Christopher Nolan");
+            auto storage = Movie::Storage::create_storage("My Movie Storage");
+            auto movie = std::make_shared<Movie::Movie>("Inception", "Sci-Fi", "Christopher Nolan");
             storage->add_movie(movie);
 
             // Act
@@ -40,8 +40,8 @@ namespace StorageTests
         TEST_METHOD(SearchByTitle_Found)
         {
             // Arrange
-            auto storage = film::Storage::create_storage("My Movie Storage");
-            auto movie = std::make_shared<film::Movie>("Inception", "Sci-Fi", "Christopher Nolan");
+            auto storage = Movie::Storage::create_storage("My Movie Storage");
+            auto movie = std::make_shared<Movie::Movie>("Inception", "Sci-Fi", "Christopher Nolan");
             storage->add_movie(movie);
 
             // Act
@@ -54,7 +54,7 @@ namespace StorageTests
         TEST_METHOD(SearchByTitle_NotFound)
         {
             // Arrange
-            auto storage = film::Storage::create_storage("My Movie Storage");
+            auto storage = Movie::Storage::create_storage("My Movie Storage");
 
             // Act
             std::string result = storage->search_by_title("Nonexistent Movie");
@@ -66,8 +66,8 @@ namespace StorageTests
         TEST_METHOD(SearchByGenre_Found)
         {
             // Arrange
-            auto storage = film::Storage::create_storage("My Movie Storage");
-            auto movie = std::make_shared<film::Movie>("Inception", "Sci-Fi", "Christopher Nolan");
+            auto storage = Movie::Storage::create_storage("My Movie Storage");
+            auto movie = std::make_shared<Movie::Movie>("Inception", "Sci-Fi", "Christopher Nolan");
             storage->add_movie(movie);
 
             // Act
@@ -81,8 +81,8 @@ namespace StorageTests
         TEST_METHOD(SearchByDirector_Found)
         {
             // Arrange
-            auto storage = film::Storage::create_storage("My Movie Storage");
-            auto movie = std::make_shared<film::Movie>("Inception", "Sci-Fi", "Christopher Nolan");
+            auto storage = Movie::Storage::create_storage("My Movie Storage");
+            auto movie = std::make_shared<Movie::Movie>("Inception", "Sci-Fi", "Christopher Nolan");
             storage->add_movie(movie);
 
             // Act
@@ -96,8 +96,8 @@ namespace StorageTests
         TEST_METHOD(SearchByActor_Found)
         {
             // Arrange
-            auto storage = film::Storage::create_storage("My Movie Storage");
-            auto movie = std::make_shared<film::Movie>("Inception", "Sci-Fi", "Leonardo DiCaprio");
+            auto storage = Movie::Storage::create_storage("My Movie Storage");
+            auto movie = std::make_shared<Movie::Movie>("Inception", "Sci-Fi", "Leonardo DiCaprio");
             storage->add_movie(movie);
 
             // Act
@@ -111,7 +111,7 @@ namespace StorageTests
         TEST_METHOD(GetTopSaleMovie_NoSales_ThrowsException)
         {
             // Arrange
-            auto storage = film::Storage::create_storage("My Movie Storage");
+            auto storage = Movie::Storage::create_storage("My Movie Storage");
 
             // Act & Assert
             Assert::ExpectException<std::out_of_range>([&]() {
@@ -122,10 +122,10 @@ namespace StorageTests
         TEST_METHOD(GetTopSaleMovie_Success)
         {
             // Arrange
-            auto storage = film::Storage::create_storage("My Movie Storage");
-            auto movie1 = std::make_shared<film::Movie>("Inception", "Sci-Fi", "Christopher Nolan");
-            auto movie2 = std::make_shared<film::Movie>("The Dark Knight", "Action", "Christopher Nolan");
-            std::vector<std::pair<std::shared_ptr<film::Movie>, int>> sales = {
+            auto storage = Movie::Storage::create_storage("My Movie Storage");
+            auto movie1 = std::make_shared<Movie::Movie>("Inception", "Sci-Fi", "Christopher Nolan");
+            auto movie2 = std::make_shared<Movie::Movie>("The Dark Knight", "Action", "Christopher Nolan");
+            std::vector<std::pair<std::shared_ptr<Movie::Movie>, int>> sales = {
                 {movie1, 100},
                 {movie2, 200}
             };

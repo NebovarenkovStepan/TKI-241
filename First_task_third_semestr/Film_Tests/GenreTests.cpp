@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "CppUnitTest.h"
-#include "../Film/Gener.h"
-#include "../Film/Film.h"
-#include "../Film/people.h"
+#include "../Film/Genre.h"
+#include "../Film/Movie.h"
+#include "../Film/Person.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -15,10 +15,10 @@ namespace FilmTests
         TEST_METHOD(AddMovie_Success)
         {
             // Arrange
-            auto genre = film::Genre::create_genre("Sci-Fi");
-            std::vector<std::shared_ptr<film::Genre>> genres = { genre };
-            std::vector<std::shared_ptr<film::Person>> directors = { std::make_shared<film::Person>("Christopher Nolan") };
-            auto movie = film::Movie::create_movie("Inception", 14.99, genres, directors, {});
+            auto genre = Movie::Genre::create_genre("Sci-Fi");
+            std::vector<std::shared_ptr<Movie::Genre>> genres = { genre };
+            std::vector<std::shared_ptr<Movie::Person>> directors = { std::make_shared<Movie::Person>("Christopher Nolan") };
+            auto movie = Movie::Movie::create_movie("Inception", 14.99, genres, directors, {});
 
             // Act
             genre->add_movie(movie);
@@ -30,7 +30,7 @@ namespace FilmTests
         TEST_METHOD(ToString_Success)
         {
             // Arrange
-            auto genre = film::Genre::create_genre("Sci-Fi");
+            auto genre = Movie::Genre::create_genre("Sci-Fi");
 
             // Act
             std::string result = genre->to_string();
@@ -43,21 +43,21 @@ namespace FilmTests
         TEST_METHOD(EqualityOperator_Success)
         {
             // Arrange
-            auto genre1 = film::Genre::create_genre("Sci-Fi");
-            auto genre2 = film::Genre::create_genre("Sci-Fi");
+            auto genre1 = Movie::Genre::create_genre("Sci-Fi");
+            auto genre2 = Movie::Genre::create_genre("Sci-Fi");
 
             // Act & Assert
-            Assert::IsTrue(*genre1 == *genre2); // Check if two genres with the same name are considered equal
+            Assert::IsTrue(*genre1 == *genre2); 
         }
 
         TEST_METHOD(EqualityOperator_Failure)
         {
             // Arrange
-            auto genre1 = film::Genre::create_genre("Sci-Fi");
-            auto genre2 = film::Genre::create_genre("Action");
+            auto genre1 = Movie::Genre::create_genre("Sci-Fi");
+            auto genre2 = Movie::Genre::create_genre("Action");
 
             // Act & Assert
-            Assert::IsFalse(*genre1 == *genre2); // Check if two genres with different names are not considered equal
+            Assert::IsFalse(*genre1 == *genre2); 
         }
     };
 }

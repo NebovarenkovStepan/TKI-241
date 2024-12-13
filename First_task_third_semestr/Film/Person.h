@@ -5,7 +5,7 @@
 #include <vector>
 
 
-namespace film 
+namespace Movie
 {
     class Person;
     bool operator==(const Person& lha, const Person& rha);

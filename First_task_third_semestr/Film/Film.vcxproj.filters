@@ -15,16 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Film.cpp">
+    <ClCompile Include="Movie.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="people.cpp">
+    <ClCompile Include="Person.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Storage.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Gener.cpp">
+    <ClCompile Include="Genre.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Order.cpp">
@@ -32,16 +32,16 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Film.h">
+    <ClInclude Include="Movie.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="people.h">
+    <ClInclude Include="Person.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Storage.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Gener.h">
+    <ClInclude Include="Genre.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Order.h">

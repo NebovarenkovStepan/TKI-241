@@ -1,8 +1,8 @@
 #include <iostream>
-#include "../Film/Gener.h"
-#include "../Film/people.h"
+#include "../Film/Genre.h"
+#include "../Film/Person.h"
 
-using namespace film;
+using namespace Movie;
 
 int main()
 {

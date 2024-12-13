@@ -1,10 +1,10 @@
-#include "Gener.h"
-#include "Film.h"
+#include "Genre.h"
+#include "Movie.h"
 
 #include <sstream>
 
 
-namespace film
+namespace Movie
 {
     void Genre::add_movie(std::shared_ptr<Movie>& movie)
     {

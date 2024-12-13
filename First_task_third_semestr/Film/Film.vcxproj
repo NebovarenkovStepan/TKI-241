@@ -128,17 +128,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Film.cpp" />
-    <ClCompile Include="Gener.cpp" />
+    <ClCompile Include="Movie.cpp" />
+    <ClCompile Include="Genre.cpp" />
     <ClCompile Include="Order.cpp" />
-    <ClCompile Include="people.cpp" />
+    <ClCompile Include="Person.cpp" />
     <ClCompile Include="Storage.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Film.h" />
-    <ClInclude Include="Gener.h" />
+    <ClInclude Include="Movie.h" />
+    <ClInclude Include="Genre.h" />
     <ClInclude Include="Order.h" />
-    <ClInclude Include="people.h" />
+    <ClInclude Include="Person.h" />
     <ClInclude Include="Storage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

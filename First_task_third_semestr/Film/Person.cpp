@@ -1,11 +1,10 @@
-#include "people.h"
+#include "Person.h"
 #include <sstream>
 #include <string>
 #include <optional>
+#include"Movie.h"
 
-#include"Film.h"
-
-namespace film 
+namespace Movie
 {
     Person::Person(const std::string& name, const std::string& surname, const std::optional<std::string>& patronymic) : name{ name }, surname{ surname }, patronymic{ patronymic }
     {

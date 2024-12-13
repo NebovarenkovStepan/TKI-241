@@ -1,8 +1,8 @@
 #include "Order.h"
 
-namespace film
+namespace Movie
 {
-    Order::Order(const string& title) : title{ title }
+    Order::Order(const string& title) : title{ title }, price_of_movie{0}
     {
         
     }
@@ -15,28 +15,24 @@ namespace film
     void Order::add_oder(shared_ptr<Movie>& movie)
     {
         pair<shared_ptr<Movie>, chrono::system_clock::time_point> order(movie.get(), chrono::system_clock::now());
-        add_sale(movie);
         movie.get()->order = shared_from_this();
     }
 
-    void Order::add_sale(shared_ptr<Movie> movie)
+    void Order::add_price(std::shared_ptr<Movie>& movie) 
     {
-        auto it = find_if(sales.begin(), sales.end(), [&movie](const auto& sale) { return sale.first == movie; });
-
-        if (it != sales.end())
+        if (movie) 
         {
-            it->second += 1;
-        }
-        else
-        {
-            sales.emplace_back(movie, 1);
+            price_of_movie = movie->get_price();
         }
     }
 
     std::string Order::to_string()
     {
         std::stringstream buffer;
-        buffer << "Order: " << order.first->to_string() << " ";
+        buffer << "Order Title: " << title << "\n"
+            << "Price of Movie: " << price_of_movie << "\n"
+            << "Movie: " << (order.first ? order.first->get_title() : "No movie ordered") << "\n"
+            << "Order Time: ";
         std::time_t timet = std::chrono::system_clock::to_time_t(order.second);
         std::tm tm;
         localtime_s(&tm, &timet);
@@ -44,7 +40,7 @@ namespace film
         return buffer.str();
     }
 
-    std::wstring to_string(Order& order)
+    std::wstring ToString(Order& order)
     {
         auto temp = order.to_string();
         return wstring{ temp.cbegin(), temp.cend() };

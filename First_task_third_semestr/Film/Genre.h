@@ -3,9 +3,9 @@
 #include <memory>
 #include <vector>
 #include <string>
-#include "Film.h"
+#include "Movie.h"
 
-namespace film
+namespace Movie
 {
 	class Genre;
 	bool operator==(const Genre& lha, const Genre& rha);

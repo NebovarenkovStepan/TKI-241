@@ -2,12 +2,9 @@
 #include <algorithm>
 
 #include "Storage.h"
+#include "Genre.h"
 
-#include "Gener.h"
-
-using namespace std;
-
-namespace film
+namespace Movie
 {
     Storage::Storage(const std::string& name) : name(name)
     {}

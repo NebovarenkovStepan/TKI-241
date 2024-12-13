@@ -1,11 +1,11 @@
-#include "Film.h"
+#include "Movie.h"
 
 #include <sstream>
 #include <iostream>
 
 using namespace std;
 
-namespace film
+namespace Movie
 {
 		Movie::Movie(const std::string& title, const double price, std::vector<shared_ptr<Genre>> genres, std::vector<shared_ptr<Person>> directors, std::vector<std::shared_ptr<Person>> actors) : title(title), price(price), genres(genres), directors(directors), actors(actors){}
 
@@ -81,7 +81,7 @@ namespace film
 			return this->price;
 		}
 
-		std::wstring to_string(const Movie& movie)
+		std::wstring ToString(const Movie& movie)
 		{
 			auto temp = movie.to_string();
 			return { temp.cbegin(), temp.cend() };
