@@ -1,47 +1,35 @@
 #pragma once
 
-#include "matrix.h"
-#include "generator.h"
+#include "../Solver/generator.h"
+#include "../Solver/matrix.h"
+
+#include <iostream>
+#include <memory>
 
 namespace matrix
 {
-    /**
-    * @brief обстрактный базовый класс exercise, представляющий задачу, которая может быть выполнена над матрицей.
-    */
-    class Exercise
+    class exercise
     {
     protected:
-        /**
-        * @brief ссылка на матрицу, над которой будет выполняться задача.
-        */
-        Matrix matrix;
+        Matrix* matrix;
 
-        /**
-        * @brief ссылка на генератор значений, используемый для заполнения матрицы.
-        */
-        Generator& generator;
+        std::ostream& out;
+
+        virtual std::string title() const noexcept = 0;
+
+        virtual void task_1() = 0;
+
+        virtual void task_2() = 0;
 
     public:
-        /**
-        * @brief конструктор класса Exercise.
-        * @param matrix ссылка на матрицу, над которой будет выполняться задача.
-        * @param generator ссылка на генератор значений.
-        */
-        Exercise(Matrix& matrix, Generator& generator);
+        explicit exercise(
+            const int rows,
+            const int columns,
+            std::unique_ptr<Generator> generator,
+            std::ostream& out = std::cout);
 
-        /**
-        * @brief виртуальный деструктор.
-        */
-        ~Exercise();
+        virtual ~exercise();
 
-        /**
-        * @brief чисто виртуальный метод для выполнения задачи Task1.
-        */
-       void virtual task1();
-
-        /**
-        * @brief яисто виртуальный метод для выполнения задачи Task2.
-        */
-        void virtual task2();
+        void run();
     };
 }
