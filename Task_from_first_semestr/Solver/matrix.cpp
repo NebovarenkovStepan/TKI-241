@@ -1,5 +1,5 @@
-#include "matrix.h"
-#include "generator.h"
+#include "Matrix.h"
+#include "Generator.h"
 
 namespace matrix
 {
@@ -78,5 +78,23 @@ namespace matrix
             }
             os << endl;
         }
+    }
+
+    Matrix::Matrix(int rows, int columns, Generator& generator) : rows(rows), columns(columns), data(rows, std::vector<int>(columns))
+    {
+        fill(generator);
+    }
+
+    std::ostream& operator<<(std::ostream& os, const Matrix& matrix)
+    {
+        for (int i = 0; i < matrix.rows; ++i)
+        {
+            for (int j = 0; j < matrix.columns; ++j)
+            {
+                os << matrix.data[i][j] << " ";
+            }
+            os << std::endl;
+        }
+        return os;
     }
 }

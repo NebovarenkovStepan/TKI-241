@@ -1,4 +1,4 @@
-#include "random_generator.h"
+#include "Random_generator.h"
 
 using namespace std;
 

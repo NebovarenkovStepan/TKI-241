@@ -1,5 +1,5 @@
 #pragma once
-#include "generator.h"
+#include "Generator.h"
 #include <vector>
 #include <iostream>
 
@@ -99,5 +99,10 @@ namespace matrix
         * @param os Поток вывода, в который будет выведено содержимое матрицы.
         */
         void print(ostream& os) const;
+
+
+        friend std::ostream& operator<<(std::ostream& os, const Matrix& matrix);
+
+        Matrix(int rows, int columns, Generator& generator);
     };
 }

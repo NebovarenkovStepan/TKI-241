@@ -15,33 +15,39 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="matrix.cpp">
+    <ClCompile Include="Matrix.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="i_genrator.cpp">
+    <ClCompile Include="I_genrator.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="random_generator.cpp">
+    <ClCompile Include="Random_generator.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="exercise.cpp">
+    <ClCompile Include="Exercise_virtual.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="My_exercise.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="matrix.h">
+    <ClInclude Include="Matrix.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="generator.h">
+    <ClInclude Include="Generator.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="i_genrator.h">
+    <ClInclude Include="I_genrator.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="random_generator.h">
+    <ClInclude Include="Random_generator.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="exercise.h">
+    <ClInclude Include="Exercise_virtual.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="My_exercise.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

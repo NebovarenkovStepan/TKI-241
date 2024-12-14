@@ -1,18 +1,18 @@
 #pragma once
 
-#include "../Solver/generator.h"
-#include "../Solver/matrix.h"
+#include "../Solver/Generator.h"
+#include "../Solver/Matrix.h"
 
 #include <iostream>
 #include <memory>
 
 namespace matrix
 {
-    class exercise
+    class Exercise_virtual
     {
     protected:
-        Matrix* matrix;
 
+        std::unique_ptr<Matrix> matrix;
         std::ostream& out;
 
         virtual std::string title() const noexcept = 0;
@@ -22,13 +22,13 @@ namespace matrix
         virtual void task_2() = 0;
 
     public:
-        explicit exercise(
+        explicit Exercise_virtual(
             const int rows,
             const int columns,
             std::unique_ptr<Generator> generator,
             std::ostream& out = std::cout);
 
-        virtual ~exercise();
+        virtual ~Exercise_virtual();
 
         void run();
     };

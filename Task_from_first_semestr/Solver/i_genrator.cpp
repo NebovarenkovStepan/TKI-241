@@ -1,4 +1,4 @@
-#include "i_genrator.h"
+#include "I_genrator.h"
 #include <exception>
 
 using namespace std;
