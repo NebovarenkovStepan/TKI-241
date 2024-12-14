@@ -7,8 +7,6 @@ namespace Movie
 {
     class Order;
     std::wstring ToString(const Order& order);
-    bool operator==(const Order& lha, const Order& rha);
-    bool operator==(const std::shared_ptr<Order>& lha, const std::shared_ptr<Order>& rha);
 
     class Movie;
     class Storage;

@@ -46,14 +46,4 @@ namespace Movie
         auto temp = order.to_string();
         return std::wstring{ temp.cbegin(), temp.cend() };
     }
-
-    bool operator==(const Order& lha, const Order& rha)
-    {
-        return false;
-    }
-
-    bool operator==(const std::shared_ptr<Order>& lha, const std::shared_ptr<Order>& rha)
-    {
-        return false;
-    }
 }
