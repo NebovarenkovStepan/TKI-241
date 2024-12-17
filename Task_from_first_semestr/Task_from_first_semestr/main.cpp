@@ -15,5 +15,9 @@ int main()
 
     exercise.run();
 
+    Matrix a(1, 2);
+
+    cout << a.get_rows();
+
     return 0;
 }

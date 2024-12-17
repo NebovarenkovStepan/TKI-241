@@ -15,17 +15,17 @@ namespace matrix
         int rows = matrix->get_rows();
         for (int j = 0; j < columns; ++j)
         {
-            int maxAbs = 0;
+            int max_abs = 0;
             for (int i = 0; i < rows; ++i)
             {
-                maxAbs = std::max(maxAbs, std::abs((*matrix)[i][j]));
+                max_abs = std::max(max_abs, std::abs((*matrix)[i][j]));
             }
 
             for (int i = 0; i < rows; ++i)
             {
                 if ((*matrix)[i][j] % 2 == 0)
                 {
-                    (*matrix)[i][j] = maxAbs;
+                    (*matrix)[i][j] = max_abs;
                 }
             }
         }
