@@ -128,19 +128,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Exercise_virtual.cpp" />
-    <ClCompile Include="I_genrator.cpp" />
+    <ClCompile Include="Exercise_Virtual.cpp" />
+    <ClCompile Include="I_Genrator.cpp" />
     <ClCompile Include="Matrix.cpp" />
-    <ClCompile Include="My_exercise.cpp" />
-    <ClCompile Include="Random_generator.cpp" />
+    <ClCompile Include="My_Exercise.cpp" />
+    <ClCompile Include="Random_Generator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Exercise_virtual.h" />
     <ClInclude Include="Generator.h" />
-    <ClInclude Include="I_genrator.h" />
+    <ClInclude Include="I_Genrator.h" />
     <ClInclude Include="Matrix.h" />
-    <ClInclude Include="My_exercise.h" />
-    <ClInclude Include="Random_generator.h" />
+    <ClInclude Include="My_Exercise.h" />
+    <ClInclude Include="Random_Generator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

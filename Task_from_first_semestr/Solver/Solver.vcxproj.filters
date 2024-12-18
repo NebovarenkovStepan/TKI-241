@@ -18,16 +18,16 @@
     <ClCompile Include="Matrix.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="I_genrator.cpp">
+    <ClCompile Include="I_Genrator.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Random_generator.cpp">
+    <ClCompile Include="Random_Generator.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Exercise_virtual.cpp">
+    <ClCompile Include="Exercise_Virtual.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="My_exercise.cpp">
+    <ClCompile Include="My_Exercise.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,16 +38,16 @@
     <ClInclude Include="Generator.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="I_genrator.h">
+    <ClInclude Include="I_Genrator.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Random_generator.h">
+    <ClInclude Include="Random_Generator.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Exercise_virtual.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="My_exercise.h">
+    <ClInclude Include="My_Exercise.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
