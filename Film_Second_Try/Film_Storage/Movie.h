@@ -29,13 +29,16 @@ namespace Movie
         std::vector<std::shared_ptr<Genre>> genres{};
         std::vector<std::shared_ptr<Director>> directors{};
         std::vector<std::shared_ptr<Actor>> actors{};
-        Movie(const std::string title, const double price, std::vector<std::shared_ptr<Genre>> genres, std::vector<std::shared_ptr<Director>> directors, std::vector<std::shared_ptr<Actor>> actors);
+        Movie(const std::string title, const double price);
 
     public:
 
-        static std::shared_ptr<Movie>create_movie(const std::string& title, const double price, std::vector<std::shared_ptr<Genre>> genres, std::vector<std::shared_ptr<Director>> directors, std::vector<std::shared_ptr<Actor>> actors);
+        static std::shared_ptr<Movie>create_movie(const std::string& title, const double price);
         std::string get_title() const;
         std::string to_string() const;
+        void add_genres(std::vector<std::shared_ptr<Genre>>& genres);
+        void add_actors(std::vector<std::shared_ptr<Actor>>& actors);
+        void add_directors(std::vector<std::shared_ptr<Actor>>& directors);
         std::shared_ptr<Storage> storage;
         Movie();
         std::vector<std::shared_ptr<Genre>> get_genres() const;

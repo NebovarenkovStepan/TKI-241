@@ -21,7 +21,6 @@ namespace Movie
     private:
 
         std::vector<Movie*> movies;
-        std::shared_ptr<Movie> movie;
         std::string name;
         Storage(const std::string& name);
 
@@ -29,7 +28,7 @@ namespace Movie
 
         static std::shared_ptr<Storage>create_storage(const std::string& name);
 
-        void add_movie(std::shared_ptr<Movie> movie);
+        void add_movie(std::shared_ptr<Movie>& movie);
 
         void remove_movie(std::shared_ptr<Movie> movie);
 

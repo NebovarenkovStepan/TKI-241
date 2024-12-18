@@ -29,5 +29,6 @@ namespace Movie
 		explicit Genre(const std::string& genre);
 		void add_genre(std::shared_ptr<Movie>& movie);
 		std::string to_string() const;
+		std::shared_ptr<Movie> movie;
 	};
 }

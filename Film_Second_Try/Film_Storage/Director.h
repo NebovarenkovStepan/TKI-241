@@ -21,6 +21,7 @@ namespace Movie
     public:
         static std::shared_ptr<Director> create_director(const std::string& name, const std::string& surname, const std::optional<std::string>& patronymic);
         void add_film_directors(std::shared_ptr<Movie> const& movie);
+        std::shared_ptr<Movie> movie;
 
     };
 }

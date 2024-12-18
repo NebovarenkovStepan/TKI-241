@@ -15,7 +15,7 @@ namespace Movie
         return std::make_shared<Storage>(Storage{ name });
     }
 
-    void Storage::add_movie(std::shared_ptr<Movie> movie)
+    void Storage::add_movie(std::shared_ptr<Movie>& movie)
     {
         this->movies.push_back(movie.get());
         movie->storage = shared_from_this();

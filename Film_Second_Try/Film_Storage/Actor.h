@@ -23,5 +23,7 @@ namespace Movie
 
         void add_film_actors(std::shared_ptr<Movie> const& movie);
 
+        std::shared_ptr<Movie> movie;
+
     };
 }

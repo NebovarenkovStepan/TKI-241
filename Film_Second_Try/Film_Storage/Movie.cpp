@@ -5,11 +5,11 @@
 
 namespace Movie
 {
-	Movie::Movie(const std::string title, const double price, std::vector<std::shared_ptr<Genre>> genres, std::vector<std::shared_ptr<Director>> directors, std::vector<std::shared_ptr<Actor>> actors) : title(title), price(price), genres(genres), directors(directors), actors(actors), sales(0) {}
+	Movie::Movie(const std::string title, const double price) : title(title), price(price) {}
 
-	std::shared_ptr<Movie> Movie::create_movie(const std::string& title, const double price, std::vector<std::shared_ptr<Genre>> genres, std::vector<std::shared_ptr<Director>> directors, std::vector<std::shared_ptr<Actor>> actors)
+	std::shared_ptr<Movie> Movie::create_movie(const std::string& title, const double price)
 	{
-		return std::make_shared<Movie>(Movie{ title, price, genres, directors,  actors });
+		return std::make_shared<Movie>(Movie{ title, price });
 	}
 
 	std::string Movie::get_title() const
@@ -58,6 +58,33 @@ namespace Movie
 		buffer << ".\n";
 
 		return buffer.str();
+	}
+
+	void Movie::add_genres(std::vector<std::shared_ptr<Genre>>& genres)
+	{
+		for (const auto& genre : genres)
+		{
+			genres.push_back(genre);
+			genre.get()->movie = shared_from_this();
+		}
+	}
+
+	void Movie::add_actors(std::vector<std::shared_ptr<Actor>>& actors)
+	{
+		for (const auto& actor : actors)
+		{
+			actors.push_back(actor);
+			actor.get()->movie = shared_from_this();
+		}
+	}
+
+	void Movie::add_directors(std::vector<std::shared_ptr<Actor>>& directors)
+	{
+		for (const auto& director : directors)
+		{
+			actors.push_back(director);
+			director.get()->movie = shared_from_this();
+		}
 	}
 
 	Movie::Movie() : title("Empty"), sales(0), price(0) {}
