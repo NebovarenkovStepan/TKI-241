@@ -15,9 +15,9 @@ namespace Movie
 
     void Order::add_oder(std::shared_ptr<Movie>& movie, int amount)
     {
-        std::pair<std::shared_ptr<Movie>, std::chrono::system_clock::time_point> order(movie.get(), std::chrono::system_clock::now());
+        this->order = std::make_pair(movie, std::chrono::system_clock::now());
         this->price_of_order = movie->get_price() * amount;
-        movie.get()->increase_sales(amount);
+        movie->increase_sales(amount);
     }
 
     std::string Order::to_string()
