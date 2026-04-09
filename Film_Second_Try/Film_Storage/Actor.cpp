@@ -11,7 +11,7 @@ namespace Movie
 	{
 		return std::make_shared<Actor>(Actor{ name, surname, patronymic });
 	}
-	void Actor::add_film_actors(std::shared_ptr<Movie> const& movie)
+	void Actor::add_film_actors(std::weak_ptr<Movie> const& movie)
 	{
 		this->movies.push_back(movie);
 		movie->get_actors().push_back(shared_from_this());
