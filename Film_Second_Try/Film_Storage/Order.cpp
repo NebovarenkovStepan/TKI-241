@@ -34,7 +34,7 @@ namespace Movie
         return buffer.str();
     }
 
-    std::wstring ToString(Order& order)
+    std::wstring ToString(const Order& order)
     {
         auto temp = order.to_string();
         return std::wstring{ temp.cbegin(), temp.cend() };
