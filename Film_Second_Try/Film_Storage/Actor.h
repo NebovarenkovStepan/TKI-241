@@ -1,29 +1,31 @@
+// Actor.h
 #pragma once
-#include "Person.h"
+#include "Person.h" 
 #include <vector>
-#include "Movie.h"
+#include <memory>   
+#include <optional>
+#include <string>
 
-namespace Movie
+class Movie;
+
+
+class Actor final : public Person, public std::enable_shared_from_this<Actor>
 {
-    class Movie;
+private:
+    // Конструктор приватный, чтобы использовать фабричный метод create
+    Actor(const std::string& name, const std::string& surname, const std::optional<std::string>& patronymic = std::nullopt);
 
-    class Actor final : public Person, std::enable_shared_from_this<Actor>
-    {
+    // Актер может сниматься во многих фильмах.
+    // Храним weak_ptr, чтобы не создавать циклы сильных ссылок (Movie -> Actor -> Movie)
+    std::vector<std::weak_ptr<Movie>> m_movies;
 
-    private:
+public:
+    // Статический фабричный метод для создания актеров
+    static std::shared_ptr<Actor> create(const std::string& name, const std::string& surname, const std::optional<std::string>& patronymic = std::nullopt);
 
-        Actor(const std::string& name, const std::string& surname, const std::optional<std::string>& patronymic = std::nullopt);
-        std::string name;
-        std::string surname;
-        std::optional<std::string> patronymic;
-        std::vector<std::shared_ptr<Movie>> movies{};
+    // Метод для установления двусторонней связи между Актером и Фильмом
+    void add_movie(const std::shared_ptr<Movie>& movie);
 
-    public:
-        static std::shared_ptr<Actor> create_actor(const std::string& name, const std::string& surname, const std::optional<std::string>& patronymic);
-
-        void add_film_actors(std::shared_ptr<Movie> const& movie);
-
-        std::shared_ptr<Movie> movie;
-
-    };
-}
+    // Получить список фильмов (возвращаем копию, чтобы нельзя было изменить внутренний вектор)
+    std::vector<std::shared_ptr<Movie>> get_movies();
+};
