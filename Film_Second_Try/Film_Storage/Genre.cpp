@@ -10,7 +10,7 @@ namespace Movie
 
 	void Genre::add_genre(std::shared_ptr<Movie>& movie)
 	{
-		this->movies.push_back(movie.get());
+		this->movies.push_back(movie);
 		movie->get_genres().push_back(shared_from_this());
 	}
 
