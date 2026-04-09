@@ -60,29 +60,29 @@ namespace Movie
 		return buffer.str();
 	}
 
-	void Movie::add_genres(std::vector<std::shared_ptr<Genre>>& genres)
+	void Movie::add_genres(const std::vector<std::shared_ptr<Genre>>& genres)
 	{
 		for (const auto& genre : genres)
 		{
-			genres.push_back(genre);
+			this->genres.push_back(genre);
 			genre.get()->movie = shared_from_this();
 		}
 	}
 
-	void Movie::add_actors(std::vector<std::shared_ptr<Actor>>& actors)
+	void Movie::add_actors(const std::vector<std::shared_ptr<Actor>>& actors)
 	{
 		for (const auto& actor : actors)
 		{
-			actors.push_back(actor);
+			this->actors.push_back(actor);
 			actor.get()->movie = shared_from_this();
 		}
 	}
 
-	void Movie::add_directors(std::vector<std::shared_ptr<Actor>>& directors)
+	void Movie::add_directors(const std::vector<std::shared_ptr<Actor>>& directors)
 	{
 		for (const auto& director : directors)
 		{
-			actors.push_back(director);
+			this->directors.push_back(director);
 			director.get()->movie = shared_from_this();
 		}
 	}
