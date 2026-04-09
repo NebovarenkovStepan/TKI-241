@@ -101,19 +101,21 @@ namespace Movie
 
     Movie Storage::get_top_sale_movie()
     {
-        int max_sales = 0;
-        Movie* top_movie = nullptr;
+        if (movies.empty())
+        {
+            throw std::out_of_range("Cannot get top sale movie from an empty storage.");
+        }
+        Movie* top_movie = movies.front();
+        int max_sales = top_movie->get_sales();
 
         for (const auto& movie : movies)
         {
-            int sale = movie->get_sales();
-            if (sale >= max_sales)
+            if (movie->get_sales() >= max_sales)
             {
-                max_sales = sale;
+                max_sales = movie->get_sales();
                 top_movie = movie;
             }
         }
-
         return *top_movie;
     }
 }
